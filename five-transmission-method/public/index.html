@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/axios@0.24.0/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/qs@6.10.2/dist/qs.js"></script>
+</head>
+<body>
+    <input id="fileInput" type="file" multiple/>
+    <script>
+        const fileInput = document.querySelector('#fileInput');
+
+        async function urlParam() {
+            const res = await axios.get('/api/person/1');
+            console.log(res);            
+        }
+        async function query() {
+            const res = await axios.get('/api/person/find', {
+                params: {
+                    name: '光',
+                    age: 20
+                }
+            });
+            console.log(res);            
+        }
+        
+        async function formUrlEncoded() {
+            const res = await axios.post('/api/person', Qs.stringify({
+                name: '光',
+                age: 20
+            }), {
+                headers: { 'content-type': 'application/x-www-form-urlencoded' }
+            });
+            console.log(res);  
+        }
+
+        async function formData() {
+            const data = new FormData();
+            data.set('name','光');
+            data.set('age', 20);
+            data.set('file1', fileInput.files[0]);
+            data.set('file2', fileInput.files[1]);
+            const res = await axios.post('/api/person/file', data, {
+                headers: { 'content-type': 'multipart/form-data' }
+            });
+            console.log(res);     
+        }
+
+        async function json() {
+            const res = await axios.post('/api/person', {
+                name: '光',
+                age: 20
+            });
+            console.log(res);     
+        }
+        urlParam();
+        query();
+        formUrlEncoded();
+        json();
+        fileInput.onchange = formData;
+    </script>
+</body>
+</html>
