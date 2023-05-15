@@ -4,5 +4,5 @@
 
 - npm install
 
-- npm run start --watch
+- nest start --watch
 
