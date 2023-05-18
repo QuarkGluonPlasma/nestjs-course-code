@@ -8,3 +8,4 @@
 
 [Module 和 Provider 的循环依赖](./circular-dependency)
 
+[全局模块和生命周期](./global-and-lifecycle)
