@@ -4,9 +4,10 @@ import { AaaGuard } from './aaa.guard';
 import { AppService } from './app.service';
 import { Bbb } from './bbb.decorator';
 import { Ccc } from './ccc.decorator';
+import { Ddd } from './ddd.decorator';
 import { MyHeaders, MyQuery } from './my.decorator';
 
-@Controller()
+@Ddd('eee', 'guang')
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
