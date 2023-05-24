@@ -1,6 +1,6 @@
 # nestjs course code
 
-掘金小册《Nest.js 通关秘籍》案例代码
+掘金小册[《Nest 通关秘籍》](https://juejin.cn/book/7226988578700525605)案例代码
 
 [5 种 http 数据传输方式](./five-transmission-method)
 
