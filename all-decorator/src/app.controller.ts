@@ -27,7 +27,7 @@ export class AppController {
   }
 
   @Get('/xxx/:aaa')
-  getHello2(@Param('aaa', new ParseIntPipe()) aaa: number,@Query('bbb', new ParseBoolPipe()) bbb: boolean) {
+  getHello2(@Param('aaa', ParseIntPipe) aaa: number,@Query('bbb', ParseBoolPipe) bbb: boolean) {
     console.log(typeof aaa,typeof bbb);
     console.log(aaa, bbb);
     return 'hello';
