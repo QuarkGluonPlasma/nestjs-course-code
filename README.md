@@ -29,3 +29,5 @@
 [第一个 dockerfile](./docker-test)
 
 [logger](./logger-test)
+
+[内置的 pipe](./pipe-test)
