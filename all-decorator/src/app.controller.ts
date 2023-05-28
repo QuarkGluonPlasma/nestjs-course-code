@@ -1,4 +1,3 @@
-import { AppService } from './../../circular-dependency/src/app.service';
 import { AaaFilter } from './aaa.filter';
 import { Controller, Get, HttpException, HttpStatus, Inject, ParseIntPipe, UseFilters, UseGuards, UseInterceptors, UsePipes, Param, ParseBoolPipe, Query, Optional, Post, Body, ValidationPipe, Put, Delete, Patch, SetMetadata, Options, Headers, Ip, Session, HostParam } from '@nestjs/common';
 import { AppService } from './app.service';
