@@ -1,7 +1,10 @@
-import { Body, DefaultValuePipe, Param, ParseArrayPipe, ParseBoolPipe, ParseEnumPipe, ParseFloatPipe, ParseUUIDPipe } from '@nestjs/common';
+import { Body, DefaultValuePipe, Param, ParseArrayPipe, ParseBoolPipe, ParseEnumPipe, ParseFloatPipe, ParseUUIDPipe, Post, ValidationPipe } from '@nestjs/common';
 import { Controller, Get, HttpException, HttpStatus, ParseIntPipe, Query } from '@nestjs/common';
 import { AaaPipe } from './aaa.pipe';
 import { AppService } from './app.service';
+import { Ooo } from './dto/ooo.dto';
+import { Ppp } from './dto/ppp.dto';
+import { MyValidationPipe } from './my-validation.pipe';
 
 enum Ggg {
   AAA = '111',
@@ -79,6 +82,15 @@ export class AppController {
   nnn(@Query('aaa', AaaPipe) aaa: string,@Param('bbb', AaaPipe) bbb: number) {
     return aaa + bbb;
   }
-  
+
+  @Post('ooo')
+  ooo(@Body(MyValidationPipe) obj: Ooo){
+    console.log(obj);
+  }
+
+  @Post('ppp')
+  ppp(@Body() post: Ppp) {
+    console.log(post);
+  }
 }
 
