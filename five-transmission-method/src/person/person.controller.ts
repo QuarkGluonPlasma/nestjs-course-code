@@ -12,7 +12,7 @@ export class PersonController {
   }
 
   @Get(':id')
-  urlParm(@Param('id') id: string) {
+  urlParam(@Param('id') id: string) {
     return `received: id=${id}`;
   }
 
@@ -28,3 +28,4 @@ export class PersonController {
     return `received: ${JSON.stringify(createPersonDto)}`
   }
 }
+
