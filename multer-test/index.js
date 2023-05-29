@@ -42,14 +42,16 @@ app.post('/bbb', upload.array('bbb', 2), function (req, res, next) {
 })
 
 app.post('/ccc', upload.fields([
-    { name: 'ccc', maxCount: 3 },
-    { name: 'ddd', maxCount: 2 }
+    { name: 'aaa', maxCount: 3 },
+    { name: 'bbb', maxCount: 2 }
 ]), function (req, res, next) {
-    console.log('ccc files', req.files['ccc']);
-    console.log('ddd files', req.files['ddd']);
+    console.log('req.files', req.files);
     console.log('req.body', req.body);
-}, function(err, req, res, next) {
-
 })
+
+app.post('/ddd', upload.any(), function(req, res, next) {
+    console.log('req.files', req.files);
+    console.log('req.body', req.body);
+});
   
 app.listen(3333);
