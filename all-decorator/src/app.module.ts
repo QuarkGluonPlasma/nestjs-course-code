@@ -11,7 +11,7 @@ import { AaaController } from './aaa.controller';
 @Module({
   imports: [BbbModule, CccModule],
   controllers: [AppController, AaaController],
-  providers: [AppService, AaaGuard, AaaInterceptor, Guang, {
+  providers: [AppService, Guang, {
     provide: 'Guang',
     useFactory() {
       return {
