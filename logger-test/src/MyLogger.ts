@@ -1,5 +1,6 @@
-import { LoggerService, LogLevel } from '@nestjs/common';
+import { Injectable, LoggerService, LogLevel } from '@nestjs/common';
 
+@Injectable()
 export class MyLogger implements LoggerService {
     log(message: string, context: string) {
         console.log(`---log---[${context}]---`, message)
