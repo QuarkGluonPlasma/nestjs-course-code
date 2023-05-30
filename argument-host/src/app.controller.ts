@@ -1,4 +1,4 @@
-import { Controller, Get, Request, SetMetadata, UseFilters, UseGuards } from '@nestjs/common';
+import { Controller, Get, Req, SetMetadata, UseFilters, UseGuards } from '@nestjs/common';
 import { AppService } from './app.service';
 import { AaaException } from './AaaException';
 import { AaaFilter } from './aaa.filter';
@@ -13,7 +13,7 @@ export class AppController {
 
   @Get()
   @SetMetadata('aaa', 'bbb')
-  getHello(@Request() req: Request): string {
+  getHello(@Req() req: Request): string {
     return this.appService.getHello();
   }
 }
