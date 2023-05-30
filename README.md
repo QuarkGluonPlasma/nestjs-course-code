@@ -36,3 +36,5 @@
 
 [Nest 的文件上传](./nest-multer-upload)
 
+[Nest 项目如何构建 docker 镜像](./nest-dockerfile)
+
