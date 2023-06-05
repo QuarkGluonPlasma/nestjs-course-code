@@ -38,3 +38,7 @@
 
 [Nest 项目如何构建 docker 镜像](./nest-dockerfile)
 
+[通过 mysql2 操作 mysql](./mysql2-test)
+
+[通过 typeorm 操作 mysql](./typeorm-test)
+
