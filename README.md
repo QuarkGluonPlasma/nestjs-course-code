@@ -40,5 +40,6 @@
 
 [通过 mysql2 操作 mysql](./mysql2-test)
 
-[通过 typeorm 操作 mysql](./typeorm-test)
+[通过 typeorm 操作 mysql](./typeorm-mysql-test)
 
+[typeorm 全部特性](./typeorm-all-feature)
