@@ -48,3 +48,4 @@
 
 [typeorm 一对多映射](./typeorm-relation-mapping2)
 
+[typeorm 多对多映射](./typeorm-relation-mapping3)
