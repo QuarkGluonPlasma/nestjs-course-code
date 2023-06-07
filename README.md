@@ -43,3 +43,7 @@
 [通过 typeorm 操作 mysql](./typeorm-mysql-test)
 
 [typeorm 全部特性](./typeorm-all-feature)
+
+[typeorm 一对一映射](./typeorm-relation-mapping)
+
+
