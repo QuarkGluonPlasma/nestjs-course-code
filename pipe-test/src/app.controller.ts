@@ -17,14 +17,14 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(@Query('aa', ParseIntPipe) aa: string): string {
+  getHello(@Query('aa', ParseIntPipe) aa: number): number {
     return aa + 1;
   }
   
   @Get('aa')
   aa(@Query('aa', new ParseIntPipe({
     errorHttpStatusCode: HttpStatus.NOT_FOUND
-  })) aa: string): string {
+  })) aa: number): number {
     return aa + 1;
   }
 
@@ -34,7 +34,7 @@ export class AppController {
       console.log(msg);
       throw new HttpException('xxx ' + msg, HttpStatus.NOT_IMPLEMENTED)
     }
-  })) aa: string): string {
+  })) aa: number): number {
     return aa + 1;
   }
   
