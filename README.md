@@ -58,4 +58,5 @@
 
 [jwt、session](./jwt-and-session)
 
+[typeorm + jwt + ValidationPipe 实现登录注册](./login-and-register)
 
