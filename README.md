@@ -58,5 +58,11 @@
 
 [jwt、session](./jwt-and-session)
 
+[Node 里读取 env、yaml 配置文件](./config-test)
+
+[Nest 的 Config 模块读取配置文件](./nest-config-test)
+
 [typeorm + jwt + ValidationPipe 实现登录注册](./login-and-register)
+
+
 

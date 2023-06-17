@@ -1,0 +1,10 @@
+application:
+  host: 'localhost'
+  port: 8080
+
+db:
+   mysql:
+    url: 'localhost'
+    port: 3306
+    database: 'aaa'
+    password: 'guang'
