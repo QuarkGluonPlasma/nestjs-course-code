@@ -21,7 +21,6 @@ export class Aaa {
         unique: true,
         nullable: false,
         length: 10,
-        width: 5,
         type: 'varchar',
         default: 'bbb'
     })
