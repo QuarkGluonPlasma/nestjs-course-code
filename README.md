@@ -64,5 +64,5 @@
 
 [typeorm + jwt + ValidationPipe 实现登录注册](./login-and-register)
 
-
+[使用 docker-compose 部署 redis、mysql、nest](./docker-compose-test)
 
