@@ -48,7 +48,7 @@ export class UserService {
     newUser.password = md5(user.password);
 
     try {
-      this.userRepository.save(newUser);
+      await this.userRepository.save(newUser);
       return '注册成功';
     } catch(e) {
       this.logger.error(e, UserService);
