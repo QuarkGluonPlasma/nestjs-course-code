@@ -9,7 +9,9 @@ import { AppService } from './app.service';
   imports: [
     TypeOrmModule.forRoot({
       type: "mysql",
-      host: "localhost",
+      // host: "localhost",
+      // host: '192.168.1.6',
+      host: "mysql-container",
       port: 3306,
       username: "root",
       password: "guang",
@@ -31,7 +33,9 @@ import { AppService } from './app.service';
       async useFactory() {
         const client = createClient({
             socket: {
-                host: 'localhost',
+                // host: 'localhost',
+                // host: '192.168.1.6',
+                host: 'redis-container',
                 port: 6379
             }
         });
@@ -42,3 +46,4 @@ import { AppService } from './app.service';
   ]
 })
 export class AppModule {}
+
