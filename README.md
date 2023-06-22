@@ -64,5 +64,7 @@
 
 [typeorm + jwt + ValidationPipe 实现登录注册](./login-and-register)
 
+[使用 ACL 实现权限控制](./acl-test)
+
 [使用 docker-compose 部署 redis、mysql、nest](./docker-compose-test)
 

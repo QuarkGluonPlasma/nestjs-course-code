@@ -31,20 +31,20 @@ services:
       - redis-container
     ports:
       - '3000:3000'
-    networks:
-      - common-network
+    # networks:
+    #   - common-network
   mysql-container:
     image: mysql
     volumes:
       - /Users/guang/mysql-data:/var/lib/mysql
-    networks:
-      - common-network
+    # networks:
+    #   - common-network
   redis-container:
     image: redis
     volumes:
       - /Users/guang/aaa:/data
-    networks:
-      - common-network
-networks:
-  common-network:
-    driver: bridge
+    # networks:
+    #   - common-network
+# networks:
+#   common-network:
+#     driver: bridge
