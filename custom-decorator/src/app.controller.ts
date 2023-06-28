@@ -36,9 +36,9 @@ export class AppController {
   }
 
   @Get('hello5')
-  getHello5(@Headers('Accept') headers1, @MyHeaders('Accept') headers2) {
+  getHello5(@Headers('Accept') headers1, @MyHeaders('accept') headers2) {
     console.log(' header1', headers1);
-    console.log(' header2', headers1);
+    console.log(' header2', headers2);
   }
 
 
