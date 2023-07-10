@@ -66,6 +66,8 @@
 
 [使用 ACL 实现权限控制](./acl-test)
 
+[使用 RBAC 实现权限控制](./rbac-test)
+
 [使用 docker-compose 部署 redis、mysql、nest](./docker-compose-test)
 
 [dockerfile 的技巧](./dockerfile-test)
