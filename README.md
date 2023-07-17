@@ -79,3 +79,7 @@
 [基于邮箱验证码实现登录--前端代码](./email-login-frontend)
 
 [基于邮箱验证码实现登录--后端代码](./email-login-backend)
+
+[基于 sharp 实现 gif 压缩--前端代码](./gif-compression-frontend)
+
+[基于 sharp 实现 gif 压缩--后端代码](./gif-compression-backend)
