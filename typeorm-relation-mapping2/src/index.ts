@@ -19,8 +19,8 @@ AppDataSource.initialize().then(async () => {
     // e3.name = '王五';
     // e3.department = d1;
 
-    // AppDataSource.manager.save(Department, d1);
-    // AppDataSource.manager.save(Employee,[e1, e2, e3]);
+    // await AppDataSource.manager.save(Department, d1);
+    // await AppDataSource.manager.save(Employee,[e1, e2, e3]);
 
 
 
@@ -38,7 +38,7 @@ AppDataSource.initialize().then(async () => {
     // d1.name = '技术部';
     // d1.employees = [e1, e2, e3];
 
-    // AppDataSource.manager.save(Department, d1);
+    // await AppDataSource.manager.save(Department, d1);
 
 
     // const deps = await AppDataSource.manager.find(Department, {
