@@ -83,3 +83,6 @@
 [基于 sharp 实现 gif 压缩--前端代码](./gif-compression-frontend)
 
 [基于 sharp 实现 gif 压缩--后端代码](./gif-compression-backend)
+
+[基于 swagger 自动生成 api 文档](./swagger-test)
+
