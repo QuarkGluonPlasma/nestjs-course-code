@@ -2,7 +2,7 @@ import { BadRequestException, Body, Controller, Get, ParseIntPipe, Post, Query, 
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
 import { existsSync } from 'fs';
-import sharp from 'sharp';
+import * as sharp from 'sharp';
 import { AppService } from './app.service';
 
 @Controller()
@@ -22,7 +22,6 @@ export class AppController {
   async compression(
     @Query('path') filePath: string,
     @Query('color', ParseIntPipe) color:number,
-    @Query('level', ParseIntPipe) level: number,
     @Res() res: Response
   ) {
     
@@ -30,13 +29,10 @@ export class AppController {
       throw new BadRequestException('文件不存在');
     }
 
-    const sharp = require('sharp');
-
     const data = await sharp(filePath, {
         animated: true,
         limitInputPixels: false
     }).gif({
-        compressionLevel: level,
         colours: color
     }).toBuffer();
     

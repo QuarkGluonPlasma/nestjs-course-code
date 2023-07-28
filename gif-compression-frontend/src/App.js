@@ -55,13 +55,6 @@ const App = () => {
         <Input />
       </Form.Item>
 
-      <Form.Item
-        label="压缩级别"
-        name="level"
-      >
-        <Input/>
-      </Form.Item>
-
       <Form.Item>
         <Dragger {...props}>
           <p className="ant-upload-drag-icon">
