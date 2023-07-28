@@ -23,7 +23,7 @@ export class UserController {
           username: foundUser.username
         }
       })
-      res.setHeader('authorization', 'bearer ' + token);
+      res.setHeader('token', token);
       return 'login success';
     } else {
       return 'login fail';
