@@ -32,7 +32,7 @@ export class AppController {
         const newToken = this.jwtService.sign({
           count: data.count + 1
         });
-        response.setHeader('authorization', 'bearer ' + newToken);
+        response.setHeader('token', newToken);
         return data.count + 1
       } catch(e) {
         console.log(e);
@@ -43,7 +43,7 @@ export class AppController {
         count: 1
       });
 
-      response.setHeader('authorization', 'bearer ' + newToken);
+      response.setHeader('token', newToken);
       return 1;
     }
   }
