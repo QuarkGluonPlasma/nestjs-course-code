@@ -67,7 +67,7 @@ import { PermissionGuard } from './permission.guard';
     {
       provide: APP_GUARD,
       useClass: PermissionGuard
-    }    
+    }
   ]
 })
 export class AppModule {}
