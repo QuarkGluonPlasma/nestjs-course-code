@@ -1,8 +1,9 @@
-import { CanActivate, ExecutionContext, Inject, Injectable, UnauthorizedException } from '@nestjs/common';
+import { CanActivate, ExecutionContext, Inject, Injectable, UnauthorizedException, HttpException } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 import { Observable } from 'rxjs';
+import { UnLoginException } from './unlogin.filter';
 import { Permission } from './user/entities/permission.entity';
 
 interface JwtUserData {
@@ -45,6 +46,7 @@ export class LoginGuard implements CanActivate {
 
     if(!authorization) {
       throw new UnauthorizedException('用户未登录');
+      // throw new UnLoginException();
     }
 
     try{
