@@ -157,6 +157,7 @@ export class UserService {
             id: user.id,
             username: user.username,
             isAdmin: user.isAdmin,
+            email: user.email,
             roles: user.roles.map(item => item.name),
             permissions: user.roles.reduce((arr, item) => {
                 item.permissions.forEach(permission => {
@@ -179,7 +180,7 @@ export class UserService {
         return user;
     }
 
-    async updatePassword(userId: number, passwordDto: UpdateUserPasswordDto) {
+    async updatePassword(passwordDto: UpdateUserPasswordDto) {
         const captcha = await this.redisService.get(`update_password_captcha_${passwordDto.email}`);
 
         if(!captcha) {
@@ -191,8 +192,12 @@ export class UserService {
         }
 
         const foundUser = await this.userRepository.findOneBy({
-          id: userId
+          username: passwordDto.username
         });
+
+        if(foundUser.email !== passwordDto.email) {
+            throw new HttpException('邮箱不正确', HttpStatus.BAD_REQUEST);
+        }
 
         foundUser.password = md5(passwordDto.password);
             
@@ -201,7 +206,7 @@ export class UserService {
           return '密码修改成功';
         } catch(e) {
           this.logger.error(e, UserService);
-          return '密码修改成功';
+          return '密码修改失败';
         }
     }
 

@@ -1,3 +1,4 @@
+import { HttpStatus } from '@nestjs/common';
 import { CanActivate, ExecutionContext, Inject, Injectable, UnauthorizedException, HttpException } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
@@ -9,6 +10,7 @@ import { Permission } from './user/entities/permission.entity';
 interface JwtUserData {
   userId: number;
   username: string;
+  email: string;
   roles: string[];
   permissions: Permission[]
 }
@@ -56,6 +58,7 @@ export class LoginGuard implements CanActivate {
       request.user = {
         userId: data.userId,
         username: data.username,
+        email: data.email,
         roles: data.roles,
         permissions: data.permissions
       }

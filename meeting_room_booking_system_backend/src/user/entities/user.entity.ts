@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from "typeorm";
 import { Role } from "./role.entity";
 
 @Entity({
@@ -11,7 +11,8 @@ export class User {
 
     @Column({
         length: 50,
-        comment: '用户名'
+        comment: '用户名',
+        unique: true
     })
     username: string;
 
