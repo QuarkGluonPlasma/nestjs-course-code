@@ -1,0 +1,24 @@
+#index-container{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+#index-container .header{
+    height: 80px;
+    border-bottom: 1px solid #aaa;
+    line-height: 80px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+#index-container h1{
+    margin: 0;
+}
+
+#index-container .icon {
+    font-size: 40px;
+    margin-top: 20px;
+}
+#index-container .body{
+    flex: 1;
+}
