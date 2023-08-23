@@ -32,19 +32,16 @@ export function UpdatePassword() {
             return message.error('两次密码不一致');
         }
         const res = await updatePassword(values);
-    
+
+        const { message: msg, data} = res.data;
+
         if(res.status === 201 || res.status === 200) {
-            const { message: msg, data} = res.data;
-            if(msg === 'success') {
-                message.success('密码修改成功');
-                setTimeout(() => {
-                    navigate('/login');
-                }, 1500);
-            } else {
-                message.error(data);
-            }
+            message.success('密码修改成功');
+            setTimeout(() => {
+                navigate('/login');
+            }, 1500);
         } else {
-            message.error('系统繁忙，请稍后再试');
+            message.error(data || '系统繁忙，请稍后再试');
         }
     }, []);
 

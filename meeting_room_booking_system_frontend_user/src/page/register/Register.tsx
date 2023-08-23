@@ -35,17 +35,12 @@ export function Register() {
         const res = await register(values);
     
         if(res.status === 201 || res.status === 200) {
-            const { message: msg, data} = res.data;
-            if(msg === 'success') {
-                message.success('注册成功');
-                setTimeout(() => {
-                    navigate('/login');
-                }, 1500);
-            } else {
-                message.error(data);
-            }
+            message.success('注册成功');
+            setTimeout(() => {
+                navigate('/login');
+            }, 1500);
         } else {
-            message.error('系统繁忙，请稍后再试');
+            message.error(res.data.data || '系统繁忙，请稍后再试');
         }
     }, []);
 
@@ -59,7 +54,7 @@ export function Register() {
         if(res.status === 201 || res.status === 200) {
             message.success(res.data.data);
         } else {
-            message.error('系统繁忙，请稍后再试');
+            message.error(res.data.data ||'系统繁忙，请稍后再试');
         }
     }, []);
     
