@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import { useEffect, useState } from 'react';
 
 axios.interceptors.request.use(function (config) {
@@ -11,15 +11,22 @@ axios.interceptors.request.use(function (config) {
 })
 
 async function refreshToken() {
-  const res = await axios.get('http://localhost:3000/user/refresh', {
-      params: {
-        refresh_token: localStorage.getItem('refresh_token')
-      }
-  });
-  localStorage.setItem('access_token', res.data.access_token);
-  localStorage.setItem('refresh_token', res.data.refresh_token);
-  return res;
+    const res = await axios.get('http://localhost:3000/user/refresh', {
+        params: {
+          refresh_token: localStorage.getItem('refresh_token')
+        }
+    });
+    localStorage.setItem('access_token', res.data.access_token || '');
+    localStorage.setItem('refresh_token', res.data.refresh_token || '');
+    return res;
 }
+
+interface PendingTask {
+  config: AxiosRequestConfig
+  resolve: Function
+}
+let refreshing = false;
+const queue: PendingTask[] = [];
 
 axios.interceptors.response.use(
   (response) => {
@@ -28,15 +35,33 @@ axios.interceptors.response.use(
   async (error) => {
     let { data, config } = error.response;
 
-    if (data.statusCode === 401 && !config.url.includes('/user/refresh')) {
-        
-      const res = await refreshToken();
+    if(refreshing) {
+      return new Promise((resolve) => {
+          queue.push({
+              config,
+              resolve
+          });
+      });
+    }
 
-      if(res.status === 200) {
-        return axios(config);
-      } else {
-        throw res.data
-      }
+    if (data.statusCode === 401 && !config.url.includes('/user/refresh')) {
+        refreshing = true;
+
+        const res = await refreshToken();
+
+        refreshing = false;
+
+        if(res.status === 200) {
+
+          queue.forEach(({config, resolve}) => {
+              resolve(axios(config))
+          })
+  
+          return axios(config);
+        } else {
+          alert('登录过期，请重新登录');
+          return Promise.reject(res.data);
+        }
         
     } else {
       return error.response;
@@ -62,6 +87,12 @@ function App() {
       await login();
     }
 
+    await [
+      axios.get('http://localhost:3000/bbb'),
+      axios.get('http://localhost:3000/bbb'),
+      axios.get('http://localhost:3000/bbb')
+    ];
+
     const { data: aaaData } = await axios.get('http://localhost:3000/aaa');
     const { data: bbbData } = await axios.get('http://localhost:3000/bbb', {
       // headers: {
@@ -73,7 +104,7 @@ function App() {
     setBbb(bbbData);
   }
   useEffect(() => {
-    query();
+      query();
   }, [])
   
 
