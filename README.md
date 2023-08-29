@@ -100,6 +100,11 @@
 
 [Nest 的 3 种定时任务](./schedule-task)
 
+[基于 Server Send Event 的数据推送--后端代码](./sse-test)
+
+[基于 Server Send Event 的数据推送--前端代码](./sse-test-frontend)
+
 [微服务入门--main](./microservice-test-main)
 
 [微服务入门--user](./microservice-test-usewr)
+
