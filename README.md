@@ -90,6 +90,8 @@
 
 [会议室预定系统--用户端前端代码](./meeting_room_booking_system_frontend_user)
 
+[会议室预定系统--管理端前端代码](./meeting_room_booking_system_frontend_admin)
+
 [基于 access_token 和 refresh_token 实现无感刷新--后端代码](./access_token_and_refresh_token)
 
 [基于 access_token 和 refresh_token 实现无感刷新--前端代码](./refresh_token_test)
