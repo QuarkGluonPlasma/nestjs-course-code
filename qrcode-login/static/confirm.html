@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>扫码登录确认</title>
+    <script src="https://unpkg.com/axios@1.5.0/dist/axios.min.js"></script>
+    <style>
+        #info {
+            height: 400px;
+            line-height: 400px;
+            font-size: 20px;
+            padding: 20px;
+        }
+        #confirm, #cancel{
+            display: block;
+            width: 80%;
+            line-height: 40px;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        #confirm {
+            background: skyblue;
+        }
+    </style>
+</head>
+<body>
+    <button id="guang">登录光光账号</button>
+    <button id="dong">登录东东账号</button>
+
+    <div id="info">
+        是否确认登录 xxx 网站？
+    </div>
+    <button id="confirm">确认登录</button>
+    <button id="cancel">取消</button>
+
+    <script>
+        const params = new URLSearchParams(window.location.search.slice(1));
+
+        const id = params.get('id');
+
+        let token = '';
+        document.getElementById('dong').addEventListener('click', () => {
+            axios.get('http://192.168.31.56:3000/login', {
+                params: {
+                    username: 'dong',
+                    password: '111'
+                }
+            }).then(res => {
+                token = res.data.token;
+            });
+        });
+
+        document.getElementById('guang').addEventListener('click', () => {
+            axios.get('http://192.168.31.56:3000/login', {
+                params: {
+                    username: 'guang',
+                    password: '222'
+                }
+            }).then(res => {
+                token = res.data.token;
+            });
+        });
+
+        axios.get('http://192.168.31.56:3000/qrcode/scan?id=' + id).catch(e => {
+            alert(e);
+            alert('二维码已过期');
+        });
+        
+        document.getElementById('confirm').addEventListener('click', () => {
+            axios.get('http://192.168.31.56:3000/qrcode/confirm?id=' + id, {
+                headers: {
+                    authorization: 'Bearer ' + token
+                }
+            }).catch(e => {
+                alert('二维码已过期');
+            });
+        });
+
+        document.getElementById('cancel').addEventListener('click', () => {
+            axios.get('http://192.168.31.56:3000/qrcode/cancel?id=' + id).catch(e => {
+                alert('二维码已过期');
+            });
+        });
+    </script>
+</body>
+</html>
