@@ -117,3 +117,6 @@
 [扫码登录](./qrcode-login)
 
 [手写 WebSocket 协议](./my-websocket/)
+
+[repl 模式](./repl-test)
+
