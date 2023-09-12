@@ -122,3 +122,5 @@
 
 [graphql 快速入门](./grqphql-crud-demo)
 
+[rabbitmq 快速入门](./rabbitmq-test)
+
