@@ -2,6 +2,8 @@ import { message } from "antd";
 import axios from "axios";
 import { UserInfo } from "../pages/InfoModify/InfoModify";
 import { UpdatePassword } from "../pages/PasswordModify/PasswordModify";
+import { CreateMeetingRoom } from "../pages/MeetingRoomManage/CreateMeetingRoomModal";
+import { UpdateMeetingRoom } from "../pages/MeetingRoomManage/UpdateMeetingRoomModal";
 
 const axiosInstance = axios.create({
     baseURL: 'http://localhost:3005/',
@@ -22,6 +24,9 @@ axiosInstance.interceptors.response.use(
         return response;
     },
     async (error) => {
+        if(!error.response) {
+            return Promise.reject(error);
+        }
         let { data, config } = error.response;
 
         if (data.code === 401 && !config.url.includes('/user/admin/refresh')) {
@@ -104,3 +109,48 @@ export async function updatePasswordCaptcha(email: string) {
 export async function updatePassword(data: UpdatePassword) {
     return await axiosInstance.post('/user/admin/update_password', data);
 }
+
+export async function meetingRoomList(name: string, capacity: number, equipment: string, pageNo: number, pageSize: number) {
+    return await axiosInstance.get('/meeting-room/list', {
+        params: {
+            name,
+            capacity,
+            equipment,
+            pageNo,
+            pageSize
+        }
+    });
+}
+
+export async function deleteMeetingRoom(id: number) {
+    return await axiosInstance.delete('/meeting-room/' + id);
+}
+
+export async function createMeetingRoom(meetingRoom: CreateMeetingRoom) {
+    return await axiosInstance.post('/meeting-room/create', meetingRoom);
+}
+
+export async function updateMeetingRoom(meetingRoom: UpdateMeetingRoom) {
+    return await axiosInstance.put('/meeting-room/update', meetingRoom);
+}
+
+export async function findMeetingRoom(id: number) {
+    return await axiosInstance.get('/meeting-room/' + id);
+}
+
+/*
+
+@Put('update')
+async update(@Body() meetingRoomDto: UpdateMeetingRoomDto) {
+  return await this.meetingRoomService.update(meetingRoomDto);
+}
+
+@Get(':id')
+async find(@Param('id') id: number) {
+  return await this.meetingRoomService.findById(id);
+}
+
+@Delete(':id')
+async delete(@Param('id') id: number) {
+  return await this.meetingRoomService.delete(id);
+}*/
