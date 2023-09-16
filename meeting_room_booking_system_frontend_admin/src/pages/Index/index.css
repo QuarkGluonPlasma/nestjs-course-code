@@ -22,3 +22,7 @@
 #index-container .body{
     flex: 1;
 }
+#index-container .sys_name {
+    text-decoration: none;
+    color: #000;
+}

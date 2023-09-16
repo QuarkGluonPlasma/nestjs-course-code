@@ -1,0 +1,12 @@
+#updateInfo-container {
+    width: 400px;
+    margin: 50px auto 0 auto;
+    text-align: center;
+}
+#updateInfo-container .btn {
+    width: 100%;
+}
+#updateInfo-container .captcha-wrapper {
+    display: flex;
+    justify-content: flex-end;
+}
