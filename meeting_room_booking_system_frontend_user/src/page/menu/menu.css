@@ -1,0 +1,7 @@
+#menu-container {
+    display: flex;
+    flex-direction: row;
+}
+#menu-container .menu-area {
+    width: 200px;
+}
