@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>附近的充电宝</title>
+  <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
+    <script src="https://cache.amap.com/lbs/static/es5.min.js"></script>
+    <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+    <style>
+        html,
+        body,
+        #container {
+          width: 100%;
+          height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="container"></div>
+<script src="https://webapi.amap.com/maps?v=2.0&key=f96fa52474cedb7477302d4163b3aa09"></script>
+<script src="https://unpkg.com/axios@1.5.1/dist/axios.min.js"></script>
+<script>
+
+    const radius = 0.05;
+
+    axios.get('/nearbySearch', {
+        params: {
+            longitude: 116.397444,
+            latitude: 39.909183,
+            radius
+        }
+    }).then(res => {
+        const data = res.data;
+
+        var map = new AMap.Map('container', {
+            resizeEnable: true,
+            zoom: 6,
+            center: [116.397444, 39.909183]
+        });
+
+        data.forEach(item => {
+            var marker = new AMap.Marker({
+                icon: "https://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
+                position: [item.longitude, item.latitude],
+                anchor: 'bottom-center'
+            });
+            map.add(marker);
+        });
+
+
+        var circle = new AMap.Circle({
+            center: new AMap.LngLat(116.397444, 39.909183), // 圆心位置
+            radius: radius * 1000,
+            strokeColor: "#F33",  //线颜色
+            strokeOpacity: 1,  //线透明度
+            strokeWeight: 3,  //线粗细度
+            fillColor: "#ee2200",  //填充颜色
+            fillOpacity: 0.35 //填充透明度
+        });
+
+        map.add(circle);
+        map.setFitView();
+    })
+        
+</script>
+</body>
+</html>
