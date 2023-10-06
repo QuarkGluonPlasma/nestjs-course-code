@@ -1,0 +1,23 @@
+{
+  "name": "prisma-all-command",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "prisma": {
+    "seed": "npx ts-node prisma/seed.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^5.4.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.2",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  }
+}
