@@ -32,6 +32,8 @@
 
 [内置的 pipe](./pipe-test)
 
+[自定义 Exception Filter](./exception-filter-test)
+
 [exporess 的 multer 包](./multer-test)
 
 [Nest 的文件上传](./nest-multer-upload)
