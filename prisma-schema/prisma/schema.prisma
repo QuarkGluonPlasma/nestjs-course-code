@@ -1,0 +1,91 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/client"
+}
+
+generator docs {
+  provider = "node node_modules/prisma-docs-generator"
+  output   = "../generated/docs"
+}
+
+generator json {
+  provider = "prisma-json-schema-generator"
+  output   = "../generated/json"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  name  String?
+}
+
+model Test {
+  id Int @id @default(autoincrement())
+  aaa String @db.Text
+  bbb Int @db.TinyInt @map("bbb2")
+  ccc String @db.VarChar(50) @unique
+
+  @@map("test_test")
+  @@index([bbb, ccc])
+}
+
+model Department {
+  id        Int    @id @default(autoincrement())
+  name      String  @db.VarChar(20)
+  createTime DateTime @default(now())
+  updateTime DateTime @updatedAt
+  employees     Employee[]
+}
+
+model Employee {
+  id         Int       @id @default(autoincrement())
+  name      String     @db.VarChar(20)
+  phone     String     @db.VarChar(30)  
+
+  deaprtmentId Int
+  department     Department      @relation(fields: [deaprtmentId], references: [id])
+}
+
+model Post {
+  id        Int          @id @default(autoincrement())
+  title     String
+  content   String?
+  published Boolean      @default(false)
+  tags      TagOnPosts[]
+}
+
+model Tag {
+  id    Int          @id @default(autoincrement())
+  name  String
+  posts TagOnPosts[]
+}
+
+model TagOnPosts {
+  post   Post @relation(fields: [postId], references: [id])
+  postId Int
+
+  tag    Tag @relation(fields: [tagId], references: [id])
+  tagId  Int
+
+  @@id([postId, tagId])
+}
+
+model Aaa {
+  id      Int      @id @default(autoincrement())
+  name    String?
+  role    EEE     @default(CCC)
+}
+
+enum EEE {
+  BBB
+  CCC
+  DDD
+}

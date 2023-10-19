@@ -133,3 +133,5 @@
 [Prisma 快速入门](./prisma-test/)
 
 [Prisma 全部命令](./prisma-all-command/)
+
+[Prisma 全部 schema 语法](./prisma-schema/)
