@@ -1,0 +1,20 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator docs {
+  provider = "node node_modules/prisma-docs-generator"
+  output   = "../generated/docs"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Aaa {
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  name  String?
+  age Int       @default(0)
+}

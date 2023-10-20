@@ -135,3 +135,7 @@
 [Prisma 全部命令](./prisma-all-command/)
 
 [Prisma 全部 schema 语法](./prisma-schema/)
+
+[Prisma Client 全部 api](./prisma-client-api/)
+
+
