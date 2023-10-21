@@ -136,6 +136,9 @@
 
 [Prisma 全部 schema 语法](./prisma-schema/)
 
-[Prisma Client 全部 api](./prisma-client-api/)
+[Prisma Client 单表 CRUD 的全部 api](./prisma-client-api/)
+
+[Prisma Client 多表 CRUD 的全部 api](./prisma-client-api2/)
 
 [Nest 集成 Prisma](./nest-prisma-test/)
+
