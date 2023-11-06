@@ -8,6 +8,8 @@
 
 [Module 和 Provider 的循环依赖](./circular-dependency)
 
+[aop 机制入门](./aop-test/)
+
 [全局模块和生命周期](./global-and-lifecycle)
 
 [全部装饰器](./all-decorator)
