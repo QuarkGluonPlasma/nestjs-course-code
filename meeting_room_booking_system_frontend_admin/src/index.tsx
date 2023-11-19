@@ -12,6 +12,8 @@ import { PasswordModify } from './pages/PasswordModify/PasswordModify';
 import { MeetingRoomManage } from './pages/MeetingRoomManage/MeetingRoomManage';
 import { BookingManage } from './pages/BookingManage/BookingManage';
 import { Statistics } from './pages/Statistics/Statistics';
+import { ConfigProvider } from 'antd';
+import zhCN from 'antd/es/locale/zh_CN';
 
 const routes = [
   {
@@ -72,4 +74,8 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-root.render(<RouterProvider router={router}/>);
+const App = <ConfigProvider locale={zhCN}>
+  <RouterProvider router={router}/>
+</ConfigProvider>
+
+root.render(App);

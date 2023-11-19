@@ -1,5 +1,5 @@
 {
-  "name": "meeting_room_booking_system_frontend_admin",
+  "name": "meeting_room_booking_system_frontend_admain",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -13,6 +13,7 @@
     "@types/react-dom": "^18.2.7",
     "antd": "^5.8.6",
     "axios": "^1.5.0",
+    "dayjs": "^1.11.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.15.0",

@@ -1,0 +1,9 @@
+#bookingManage-container {
+    padding: 20px;
+}
+#bookingManage-container .bookingManage-form {
+    margin-bottom: 40px;
+}
+#bookingManage-container .ant-form-item {
+    margin: 10px;
+}
