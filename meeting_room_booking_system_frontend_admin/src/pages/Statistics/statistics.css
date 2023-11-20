@@ -1,0 +1,10 @@
+#statistics-container {
+    padding: 20px;
+}
+#statistics-container .statistics-form {
+    margin-bottom: 40px;
+}
+#statistics-container .statistics-chart {
+    width: 800px;
+    height: 600px;
+}
