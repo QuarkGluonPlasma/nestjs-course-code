@@ -4,6 +4,8 @@
 
 [5 种 http 数据传输方式](./five-transmission-method)
 
+[ioc 容器](./nest-ioc)
+
 [自定义 provider](./custom-provider)
 
 [Module 和 Provider 的循环依赖](./circular-dependency)
