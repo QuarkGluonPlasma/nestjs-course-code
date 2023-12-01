@@ -78,6 +78,8 @@
 
 [使用 RBAC 实现权限控制](./rbac-test)
 
+[短链服务](./short-url)
+
 [使用 docker-compose 部署 redis、mysql、nest](./docker-compose-test)
 
 [dockerfile 的技巧](./dockerfile-test)
