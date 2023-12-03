@@ -66,6 +66,8 @@
 
 [Nest 操作 redis](./nest-redis)
 
+[为什么不使用 CacheManger 操作 Redis](./cache-manager-test/)
+
 [jwt、session](./jwt-and-session)
 
 [Node 里读取 env、yaml 配置文件](./config-test)
