@@ -128,6 +128,8 @@
 
 [etcd 实现注册中心和配置中心](./etcd-test/)
 
+[Nest 集成 etcd](./nest-etcd/)
+
 [扫码登录](./qrcode-login)
 
 [手写 WebSocket 协议](./my-websocket/)
@@ -153,4 +155,3 @@
 [Prisma Client 多表 CRUD 的全部 api](./prisma-client-api2/)
 
 [Nest 集成 Prisma](./nest-prisma-test/)
-
