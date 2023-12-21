@@ -100,6 +100,8 @@
 
 [基于 swagger 自动生成 api 文档](./swagger-test)
 
+[用 compodoc 生成项目文档](./compodoc-test/)
+
 [会议室预定系统--后端代码](./meeting_room_booking_system_backend)
 
 [会议室预定系统--用户端前端代码](./meeting_room_booking_system_frontend_user)
