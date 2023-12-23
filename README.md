@@ -46,6 +46,8 @@
 
 [Nest 的文件上传](./nest-multer-upload)
 
+[大文件分片上传](./large-file-sharding-upload/)
+
 [Nest 项目如何构建 docker 镜像](./nest-dockerfile)
 
 [通过 mysql2 操作 mysql](./mysql2-test)
