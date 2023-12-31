@@ -1,9 +1,9 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { CreateBookingDto } from './dto/create-booking.dto';
 import { UpdateBookingDto } from './dto/update-booking.dto';
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
 import { Booking } from './entities/booking.entity';
-import { And, Between, EntityManager, Like, Repository } from 'typeorm';
+import { And, Between, EntityManager, LessThanOrEqual, Like, MoreThanOrEqual, Repository } from 'typeorm';
 import { User } from 'src/user/entities/user.entity';
 import { MeetingRoom } from 'src/meeting-room/entities/meeting-room.entity';
 import { RedisService } from 'src/redis/redis.service';
@@ -111,6 +111,40 @@ export class BookingService {
       }),
       totalCount
     }
+  }
+
+  async add(bookingDto: CreateBookingDto, userId: number) {
+    const meetingRoom = await this.entityManager.findOneBy(MeetingRoom, {
+      id: bookingDto.meetingRoomId
+    });
+
+    if(!meetingRoom) {
+      throw new BadRequestException('会议室不存在');
+    }
+
+    const user = await this.entityManager.findOneBy(User, {
+      id: userId
+    });
+
+    const booking = new Booking();
+    booking.room = meetingRoom;
+    booking.user = user;
+    booking.startTime = new Date(bookingDto.startTime);
+    booking.endTime = new Date(bookingDto.endTime);
+
+    const res = await this.entityManager.findOneBy(Booking, {
+      room: {
+        id: meetingRoom.id
+      },
+      startTime: LessThanOrEqual(booking.startTime),
+      endTime: MoreThanOrEqual(booking.endTime)
+    });
+
+    if(res) {
+      throw new BadRequestException('该时间段已被预定');
+    }
+    
+    await this.entityManager.save(Booking, booking);
   }
 
   async apply(id: number) {
