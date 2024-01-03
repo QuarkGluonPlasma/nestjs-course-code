@@ -1,0 +1,9 @@
+#bookingHistory-container {
+    padding: 20px;
+}
+#bookingHistory-container .bookingHistory-form {
+    margin-bottom: 40px;
+}
+#bookingHistory-container .ant-form-item {
+    margin: 10px;
+}
