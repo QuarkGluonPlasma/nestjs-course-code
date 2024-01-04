@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/exceljs@4.4.0/dist/exceljs.min.js"></script>
+</head>
+<body>
+    <input id="fileInput" type="file"/>
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        fileInput.onchange = async () => {
+            const file = fileInput.files[0];
+
+            const { Workbook } = ExcelJS;
+
+            const workbook = new Workbook();
+
+            const workbook2 = await workbook.xlsx.load(file);
+
+            workbook2.eachSheet((sheet, index1) => {
+                console.log('工作表' + index1);
+
+                const value = sheet.getSheetValues();
+
+                console.log(value);
+            })
+        }
+    </script>
+</body>
+</html>
