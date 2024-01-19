@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/axios@1.6.5/dist/axios.min.js"></script>
+</head>
+<body>
+    <input id="fileInput" type="file"/>
+    
+    <script>
+        const fileInput = document.getElementById('fileInput');
+
+        async function getOSSInfo() {
+            await '请求应用服务器拿到临时凭证';
+            return {
+                OSSAccessKeyId: '',
+                Signature: '',
+                policy: '',
+                host: 'http://guang-333.oss-cn-beijing.aliyuncs.com'
+            }
+        }
+
+        fileInput.onchange = async () => {
+            const file = fileInput.files[0];
+
+            const ossInfo = await getOSSInfo();
+
+
+            const formdata = new FormData()
+ 
+            formdata.append('key', file.name);
+            formdata.append('OSSAccessKeyId', ossInfo.OSSAccessKeyId)
+            formdata.append('policy', ossInfo.policy)
+            formdata.append('signature', ossInfo.Signature)
+            formdata.append('success_action_status', '200')
+            formdata.append('file', file)
+
+            const res = await axios.post(ossInfo.host, formdata);
+            if(res.status === 200) {
+                
+                const img = document.createElement('img');
+                img.src = ossInfo.host + '/' + file.name
+                document.body.append(img);
+
+                alert('上传成功');
+            }
+        }
+    </script>
+</body>
+</html>

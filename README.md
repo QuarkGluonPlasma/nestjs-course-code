@@ -138,6 +138,8 @@
 
 [扫码登录](./qrcode-login)
 
+[OSS 上传](./oss-test/)
+
 [手写 WebSocket 协议](./my-websocket/)
 
 [repl 模式](./repl-test)
