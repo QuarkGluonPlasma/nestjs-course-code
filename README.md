@@ -140,6 +140,8 @@
 
 [OSS 上传](./oss-test/)
 
+[用 Minio 搭一个 OSS 服务](./minio-test/)
+
 [手写 WebSocket 协议](./my-websocket/)
 
 [repl 模式](./repl-test)
