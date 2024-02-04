@@ -165,3 +165,5 @@
 [Prisma Client 多表 CRUD 的全部 api](./prisma-client-api2/)
 
 [Nest 集成 Prisma](./nest-prisma-test/)
+
+[Nest 开发 WebSocket 服务](./nest-websocket/)
