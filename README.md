@@ -42,7 +42,7 @@
 
 [自定义 Exception Filter](./exception-filter-test)
 
-[exporess 的 multer 包](./multer-test)
+[express 的 multer 包](./multer-test)
 
 [Nest 的文件上传](./nest-multer-upload)
 
@@ -155,6 +155,8 @@
 [grpc 跨语言远程方法调用](./grpc-client/)
 
 [Nest + Redis + 地图，实现附近的充电宝](./nearby-search/)
+
+[Redis 实现排行榜（月榜、年榜）](./ranking-list-test/)
 
 [Prisma 快速入门](./prisma-test/)
 
