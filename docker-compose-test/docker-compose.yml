@@ -14,6 +14,9 @@
 #       - '3306:3306'
 #     volumes:
 #       - /Users/guang/mysql-data:/var/lib/mysql
+#     environment:
+#       MYSQL_DATABASE: aaa
+#       MYSQL_ROOT_PASSWORD: guang
 #   redis-container:
 #     image: redis
 #     ports:
@@ -37,6 +40,9 @@ services:
     image: mysql
     volumes:
       - /Users/guang/mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: aaa
+      MYSQL_ROOT_PASSWORD: guang
     # networks:
     #   - common-network
   redis-container:
