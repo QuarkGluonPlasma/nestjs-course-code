@@ -64,6 +64,8 @@
 
 [Nest 集成 typeorm](./nest-typeorm)
 
+[typeorm 的 migration](./typeorm-migration/)
+
 [Node 操作 redis](./redis-node-test)
 
 [Nest 操作 redis](./nest-redis)
