@@ -64,6 +64,8 @@
 
 [Nest 集成 typeorm](./nest-typeorm)
 
+[TypeORM 存储任意层级关系（Tree Entity）](./typeorm-tree-entity-test/)
+
 [typeorm 的 migration](./typeorm-migration/)
 
 [Node 操作 redis](./redis-node-test)
