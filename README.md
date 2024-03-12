@@ -173,3 +173,7 @@
 [Nest 集成 Prisma](./nest-prisma-test/)
 
 [Nest 开发 WebSocket 服务](./nest-websocket/)
+
+[Mongoose 操作 Mongodb](./mongoose-test/)
+
+[Nest 集成 Mongoose](./nest-mongoose/)
