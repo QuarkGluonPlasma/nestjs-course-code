@@ -1,14 +1,22 @@
 version: '3.8'
 services:
+  fe-app:
+    image: registry.cn-qingdao.aliyuncs.com/guang_guang/guang:aaa
+    ports:
+      - 80:80
+    depends_on:
+      - nest-app
+    networks:
+      - common-network
   nest-app:
     build:
       context: ./
       dockerfile: ./Dockerfile
+    # ports:
+    #   - 3005:3005
     depends_on:
       - mysql-container
       - redis-container
-    ports:
-      - 3005:3005
     networks:
       - common-network
   mysql-container:
