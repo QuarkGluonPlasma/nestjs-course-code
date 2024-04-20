@@ -1,0 +1,33 @@
+type Student {
+  id: String,
+  name: String,
+  sex: Boolean
+  age: Int
+}
+
+type Teacher {
+  id: String,
+  name: String,
+  age: Int,
+  subject: [String],
+  students: [Student]
+}
+
+type Query {
+  students: [Student],
+  studentById(id: Int!): Student,
+  teachers: [Teacher],
+}
+
+type Res {
+    success: Boolean
+    id: String
+}
+
+type Mutation {
+  addStudent(name:String! age:Int! sex:Boolean!): Res
+
+  updateStudent(id: String! name:String! age:Int! sex:Boolean!): Res
+
+  deleteStudent(id: String!): Res
+}
