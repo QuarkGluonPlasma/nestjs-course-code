@@ -154,6 +154,10 @@
 
 [Nest + GraphQL 做 CRUD](./nest-graphql/)
 
+[GraphQL + Prisma 实现 TodoList 后端代码](./graphql-todolist/)
+
+[GraphQL + Prisma 实现 TodoList 前端代码](./graphql-todolist-client/)
+
 [rabbitmq 快速入门](./rabbitmq-test)
 
 [grpc 跨语言远程方法调用](./grpc-client/)
