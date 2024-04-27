@@ -104,6 +104,8 @@
 
 [基于 sharp 实现 gif 压缩--后端代码](./gif-compression-backend)
 
+[大文件流式下载](./download-test/)
+
 [基于 swagger 自动生成 api 文档](./swagger-test)
 
 [灵活创建 dto 对象](./dto-vo-test/)
