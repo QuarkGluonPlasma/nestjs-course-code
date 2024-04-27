@@ -100,6 +100,8 @@
 
 [基于邮箱验证码实现登录--后端代码](./email-login-backend)
 
+[事件通信](./event-emitter-test/)
+
 [基于 sharp 实现 gif 压缩--前端代码](./gif-compression-frontend)
 
 [基于 sharp 实现 gif 压缩--后端代码](./gif-compression-backend)
