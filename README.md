@@ -114,6 +114,8 @@
 
 [序列化 entity ，你不需要 vo 对象](./vo-test/)
 
+[手写序列化 entity 的拦截器](./serializer-interceptor-test/)
+
 [用 compodoc 生成项目文档](./compodoc-test/)
 
 [excel 的解析和生成](./exceljs-test/)
