@@ -160,6 +160,8 @@
 
 [前端直传文件到 minio](./minio-fe-upload/)
 
+[天气预报查询](./city-weather/)
+
 [手写 WebSocket 协议](./my-websocket/)
 
 [repl 模式](./repl-test)
