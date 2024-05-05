@@ -158,6 +158,8 @@
 
 [用 Minio 搭一个 OSS 服务](./minio-test/)
 
+[前端直传文件到 minio](./minio-fe-upload/)
+
 [手写 WebSocket 协议](./my-websocket/)
 
 [repl 模式](./repl-test)

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="file" id="selector" multiple>
+    <button onclick="upload()">Upload</button>
+    <div id="status">No uploads</div>
+
+    <script type="text/javascript">
+        function upload() {
+            var files = document.querySelector("#selector").files;
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                retrieveNewURL(file, (file, url) => {
+                    uploadFile(file, url);
+                });
+            }
+        }
+
+        function retrieveNewURL(file, cb) {
+            fetch(`/presignedUrl?name=${file.name}`).then((response) => {
+                response.text().then((url) => {
+                    cb(file, url);
+                });
+            }).catch((e) => {
+                console.error(e);
+            });
+        }
+
+        function uploadFile(file, url) {
+            if (document.querySelector('#status').innerText === 'No uploads') {
+                document.querySelector('#status').innerHTML = '';
+            }
+            fetch(url, {
+                method: 'PUT',
+                body: file
+            }).then(() => {
+                document.querySelector('#status').innerHTML += `<br>Uploaded ${file.name}.`;
+            }).catch((e) => {
+                console.error(e);
+            });
+        }
+    </script>
+</body>
+</html>
