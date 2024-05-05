@@ -142,6 +142,8 @@
 
 [基于 Server Send Event 的数据推送--前端代码](./sse-test-frontend)
 
+[Puppeteer 实现爬虫](./boss-jd-spider/)
+
 [微服务入门--main](./microservice-test-main)
 
 [微服务入门--user](./microservice-test-usewr)
