@@ -168,6 +168,8 @@
 
 [repl 模式](./repl-test)
 
+[服务器 cpu、内存、磁盘、ip 等信息](./server-status/)
+
 [graphql 快速入门](./grqphql-crud-demo)
 
 [Nest + GraphQL 做 CRUD](./nest-graphql/)
