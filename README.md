@@ -164,6 +164,8 @@
 
 [天气预报查询](./city-weather/)
 
+[请求日志](./request-log/)
+
 [手写 WebSocket 协议](./my-websocket/)
 
 [repl 模式](./repl-test)
