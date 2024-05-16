@@ -114,6 +114,8 @@
 
 [灵活创建 dto 对象](./dto-vo-test/)
 
+[class-validator 的自定义装饰器](./class-validator-decorators/)
+
 [序列化 entity ，你不需要 vo 对象](./vo-test/)
 
 [手写序列化 entity 的拦截器](./serializer-interceptor-test/)
