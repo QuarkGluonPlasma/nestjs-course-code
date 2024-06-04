@@ -102,8 +102,6 @@
 
 [基于邮箱验证码实现登录--后端代码](./email-login-backend)
 
-[passport 实现身份认证](./nest-passport/)
-
 [事件通信](./event-emitter-test/)
 
 [基于 sharp 实现 gif 压缩--前端代码](./gif-compression-frontend)
@@ -127,6 +125,10 @@
 [用 compodoc 生成项目文档](./compodoc-test/)
 
 [excel 的解析和生成](./exceljs-test/)
+
+[passport 实现身份认证](./nest-passport/)
+
+[passport 实现 github 三方登录](./github-login/)
 
 [会议室预定系统--后端代码](./meeting_room_booking_system_backend)
 
