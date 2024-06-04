@@ -112,6 +112,8 @@
 
 [大文件流式下载](./download-test/)
 
+[nestjs-i18n 实现国际化](./i18n-test/)
+
 [基于 swagger 自动生成 api 文档](./swagger-test)
 
 [灵活创建 dto 对象](./dto-vo-test/)

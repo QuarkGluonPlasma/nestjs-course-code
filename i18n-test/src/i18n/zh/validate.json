@@ -1,0 +1,5 @@
+{
+    "usernameNotEmpty": "用户名不能为空",
+    "passwordNotEmpty": "密码不能为空",
+    "passwordNotLessThan6": "密码不能少于 {num} 位"
+}
