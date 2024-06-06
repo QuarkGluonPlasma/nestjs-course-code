@@ -130,6 +130,8 @@
 
 [passport 实现 github 三方登录](./github-login/)
 
+[passport 实现 google 三方登录](./google-login/)
+
 [会议室预定系统--后端代码](./meeting_room_booking_system_backend)
 
 [会议室预定系统--用户端前端代码](./meeting_room_booking_system_frontend_user)
