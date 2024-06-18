@@ -2,7 +2,6 @@
    "name": "typeorm-migration",
    "version": "0.0.1",
    "description": "Awesome project developed with TypeORM.",
-   "type": "commonjs",
    "devDependencies": {
       "@types/node": "^16.11.10",
       "ts-node": "10.9.1",
@@ -16,6 +15,10 @@
    },
    "scripts": {
       "start": "ts-node src/index.ts",
-      "typeorm": "typeorm-ts-node-commonjs"
+      "typeorm": "ts-node ./node_modules/typeorm/cli",
+      "migration:create": "npm run typeorm -- migration:create",
+      "migration:generate": "npm run typeorm -- migration:generate -d ./src/data-source.ts",
+      "migration:run": "npm run typeorm -- migration:run -d ./src/data-source.ts",
+      "migration:revert": "npm run typeorm -- migration:revert -d ./src/data-source.ts"
    }
 }
