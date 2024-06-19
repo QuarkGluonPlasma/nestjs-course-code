@@ -70,6 +70,8 @@
 
 [typeorm 的 migration](./typeorm-migration/)
 
+[Nest 里执行 typeorm 的 migration](./nest-typeorm-migration/)
+
 [Node 操作 redis](./redis-node-test)
 
 [Nest 操作 redis](./nest-redis)
