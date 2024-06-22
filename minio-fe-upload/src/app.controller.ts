@@ -23,7 +23,7 @@ export class AppController {
   
   @Get('presignedUrl')
   async presignedUrl(@Query('name') name: string) {
-    return this.minioClient.presignedPutObject('aaa', name);
+    return this.minioClient.presignedPutObject('aaa', name, 3600);
   }
 
   @Get()
