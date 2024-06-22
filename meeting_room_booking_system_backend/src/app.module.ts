@@ -18,6 +18,7 @@ import { MeetingRoom } from './meeting-room/entities/meeting-room.entity';
 import { BookingModule } from './booking/booking.module';
 import { Booking } from './booking/entities/booking.entity';
 import { StatisticModule } from './statistic/statistic.module';
+import { MinioModule } from './minio/minio.module';
 import * as path from 'path';
 
 @Module({
@@ -49,7 +50,7 @@ import * as path from 'path';
           username: configService.get('mysql_server_username'),
           password: configService.get('mysql_server_password'),
           database: configService.get('mysql_server_database'),
-          synchronize: true,
+          synchronize: false,
           logging: true,
           entities: [
             User, Role, Permission, MeetingRoom, Booking
@@ -62,7 +63,7 @@ import * as path from 'path';
         }
       },
       inject: [ConfigService]
-    }), RedisModule, EmailModule, MeetingRoomModule, BookingModule, StatisticModule
+    }), RedisModule, EmailModule, MeetingRoomModule, BookingModule, StatisticModule, MinioModule
   ],
   controllers: [AppController],
   providers: [

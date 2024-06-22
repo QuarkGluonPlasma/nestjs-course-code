@@ -21,7 +21,6 @@ const layout1 = {
 
 export function UpdateInfo() {
     const [form] = useForm();
-    const navigate = useNavigate();
 
     const onFinish = useCallback(async (values: UserInfo) => {
         const res = await updateInfo(values);
@@ -30,6 +29,16 @@ export function UpdateInfo() {
             const { message: msg, data} = res.data;
             if(msg === 'success') {
                 message.success('用户信息更新成功');
+
+                const userInfo = localStorage.getItem('user_info');
+                if(userInfo) {
+                    const info = JSON.parse(userInfo);
+                    info.headPic = values.headPic;
+                    info.nickName = values.nickName;
+
+                    localStorage.setItem('user_info', JSON.stringify(info));
+                }
+
             } else {
                 message.error(data);
             }
