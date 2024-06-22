@@ -1,5 +1,6 @@
-import { MeetingRoom } from "src/meeting-room/entities/meeting-room.entity";
-import { User } from "src/user/entities/user.entity";
+
+import { MeetingRoom } from "../../meeting-room/entities/meeting-room.entity";
+import { User } from "../../user/entities/user.entity";
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
