@@ -1,5 +1,5 @@
 import { ConfigService } from '@nestjs/config';
-import { BadRequestException, Body, Controller, DefaultValuePipe, Get, HttpException, HttpStatus, Inject, ParseIntPipe, Post, Query, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { BadRequestException, Body, Controller, DefaultValuePipe, Get, HttpException, HttpStatus, Inject, ParseIntPipe, Post, Query, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { EmailService } from 'src/email/email.service';
 import { RedisService } from 'src/redis/redis.service';
@@ -19,6 +19,7 @@ import { UserListVo } from './vo/user-list.vo';
 import { FileInterceptor } from '@nestjs/platform-express';
 import * as path from 'path';
 import { storage } from 'src/my-file-storage';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('用户管理模块')
 @Controller('user')
@@ -98,10 +99,9 @@ export class UserController {
     description: '用户信息和 token',
     type: LoginUserVo
   })
+  @UseGuards(AuthGuard('local'))
   @Post('login')
-  async userLogin(@Body() loginUser: LoginUserDto) {
-    const vo = await this.userService.login(loginUser, false);
-  
+  async userLogin(@UserInfo() vo: LoginUserVo) {
     vo.accessToken = this.jwtService.sign({
       userId: vo.userInfo.id,
       username: vo.userInfo.username,
