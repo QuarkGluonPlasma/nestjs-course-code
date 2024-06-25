@@ -75,6 +75,16 @@ export function Login() {
             </Form.Item>
 
             <Form.Item
+                {...layout2}
+            >
+                <div>
+                    <a href="#" onClick={() => {
+                        window.location.href = "http://localhost:3005/user/google";
+                    }}>Google 账号登录</a>
+                </div>
+            </Form.Item>
+
+            <Form.Item
                 {...layout1}
                 label=' '
             >
@@ -83,5 +93,5 @@ export function Login() {
                 </Button>
             </Form.Item>
         </Form>
-    </div>   
+    </div>
 }
