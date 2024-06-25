@@ -39,8 +39,7 @@ import * as path from 'path';
     UserModule, 
     ConfigModule.forRoot({
       isGlobal: true,
-      // envFilePath: 'src/.env'
-      envFilePath: path.join(__dirname, '.env')
+      envFilePath: ['src/.env', 'src/.dev.env']
     }),
     TypeOrmModule.forRootAsync({
       useFactory(configService: ConfigService) {
