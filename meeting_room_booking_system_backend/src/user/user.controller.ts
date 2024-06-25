@@ -1,5 +1,5 @@
 import { ConfigService } from '@nestjs/config';
-import { BadRequestException, Body, Controller, DefaultValuePipe, Get, HttpException, HttpStatus, Inject, ParseIntPipe, Post, Query, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { BadRequestException, Body, Controller, DefaultValuePipe, Get, HttpException, HttpStatus, Inject, ParseIntPipe, Post, Query, Req, Res, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { EmailService } from 'src/email/email.service';
 import { RedisService } from 'src/redis/redis.service';
@@ -20,6 +20,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import * as path from 'path';
 import { storage } from 'src/my-file-storage';
 import { AuthGuard } from '@nestjs/passport';
+import { Request, Response } from 'express';
 
 @ApiTags('用户管理模块')
 @Controller('user')
@@ -205,6 +206,107 @@ export class UserController {
     } catch(e) {
       throw new UnauthorizedException('token 已失效，请重新登录');
     }
+  }
+
+  @Get('google')
+  @UseGuards(AuthGuard('google'))
+  async googleAuth() {}
+
+  @Get('callback/google')
+  @UseGuards(AuthGuard('google'))
+  async googleAuthRedirect(@Req() req, @Res() res: Response) {
+    if (!req.user) {
+      throw new BadRequestException('google 登录失败');
+    }
+
+    const foundUser = await this.userService.findUserByEmail(req.user.email);
+
+    if(foundUser) {
+      const vo = new LoginUserVo();
+      vo.userInfo = {
+          id: foundUser.id,
+          username: foundUser.username,
+          nickName: foundUser.nickName,
+          email: foundUser.email,
+          phoneNumber: foundUser.phoneNumber,
+          headPic: foundUser.headPic,
+          createTime: foundUser.createTime.getTime(),
+          isFrozen: foundUser.isFrozen,
+          isAdmin: foundUser.isAdmin,
+          roles: foundUser.roles.map(item => item.name),
+          permissions: foundUser.roles.reduce((arr, item) => {
+              item.permissions.forEach(permission => {
+                  if(arr.indexOf(permission) === -1) {
+                      arr.push(permission);
+                  }
+              })
+              return arr;
+          }, [])
+      }
+      vo.accessToken = this.jwtService.sign({
+        userId: vo.userInfo.id,
+        username: vo.userInfo.username,
+        email: vo.userInfo.email,
+        roles: vo.userInfo.roles,
+        permissions: vo.userInfo.permissions
+      }, {
+        expiresIn: this.configService.get('jwt_access_token_expires_time') || '30m'
+      });
+  
+      vo.refreshToken = this.jwtService.sign({
+        userId: vo.userInfo.id
+      }, {
+        expiresIn: this.configService.get('jwt_refresh_token_expres_time') || '7d'
+      });
+    
+      res.cookie('userInfo', JSON.stringify(vo.userInfo));
+      res.cookie('accessToken', vo.accessToken);
+      res.cookie('refreshToken', vo.refreshToken);
+      
+    } else {
+      const user = await this.userService.registerByGoogleInfo(
+        req.user.email, 
+        req.user.firstName + ' ' + req.user.lastName,
+        req.user.picture
+      );
+  
+      const vo = new LoginUserVo();
+      vo.userInfo = {
+          id: user.id,
+          username: user.username,
+          nickName: user.nickName,
+          email: user.email,
+          phoneNumber: user.phoneNumber,
+          headPic: user.headPic,
+          createTime: user.createTime.getTime(),
+          isFrozen: user.isFrozen,
+          isAdmin: user.isAdmin,
+          roles: [],
+          permissions: []
+      }
+  
+      vo.accessToken = this.jwtService.sign({
+        userId: vo.userInfo.id,
+        username: vo.userInfo.username,
+        email: vo.userInfo.email,
+        roles: vo.userInfo.roles,
+        permissions: vo.userInfo.permissions
+      }, {
+        expiresIn: this.configService.get('jwt_access_token_expires_time') || '30m'
+      });
+  
+      vo.refreshToken = this.jwtService.sign({
+        userId: vo.userInfo.id
+      }, {
+        expiresIn: this.configService.get('jwt_refresh_token_expres_time') || '7d'
+      });
+    
+      res.cookie('userInfo', JSON.stringify(vo.userInfo));
+      res.cookie('accessToken', vo.accessToken);
+      res.cookie('refreshToken', vo.refreshToken);
+    }
+
+    res.redirect('http://localhost:3000/');
   }
 
   @ApiQuery({
