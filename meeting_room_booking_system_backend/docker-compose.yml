@@ -6,6 +6,7 @@ services:
       - 80:80
     depends_on:
       - nest-app
+    restart: always
     networks:
       - common-network
   nest-app:
@@ -17,21 +18,38 @@ services:
     depends_on:
       - mysql-container
       - redis-container
+    restart: always
     networks:
       - common-network
   mysql-container:
     image: mysql
     volumes:
       - /Users/guang/mysql-data:/var/lib/mysql
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci # 设置默认字符集
     environment:
       MYSQL_DATABASE: meeting_room_booking_system
       MYSQL_ROOT_PASSWORD: guang
+    restart: always
     networks:
       - common-network
   redis-container:
     image: redis
     volumes:
       - /Users/guang/redis-data:/data
+    restart: always
+    networks:
+      - common-network
+  minio-container:
+    image: bitnami/minio:latest
+    ports:
+      - 9000:9000
+      - 9001:9001
+    volumes:
+      - /Users/guang/minio:/bitnami/minio/data
+    environment:
+      MINIO_ROOT_USER: guang
+      MINIO_ROOT_PASSWORD: dongdong
+    restart: always
     networks:
       - common-network
 networks:

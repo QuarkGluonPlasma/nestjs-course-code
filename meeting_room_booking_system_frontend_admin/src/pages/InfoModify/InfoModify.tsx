@@ -33,7 +33,7 @@ export function InfoModify() {
                 message.error(data);
             }
         } else {
-            message.error('系统繁忙，请稍后再试');
+            message.error(res.data?.data || '系统繁忙，请稍后再试');
         }
     }, []);
 

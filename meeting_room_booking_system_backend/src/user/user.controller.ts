@@ -392,7 +392,11 @@ export class UserController {
   })
   @Post(['update_password', 'admin/update_password'])
   async updatePassword(@Body() passwordDto: UpdateUserPasswordDto) {
-    return await this.userService.updatePassword(passwordDto);
+    const res = await this.userService.updatePassword(passwordDto);
+
+    this.redisService.del(`update_password_captcha_${passwordDto.email}`);
+
+    return res;
   }
 
   @ApiQuery({
@@ -435,7 +439,11 @@ export class UserController {
   @Post(['update', 'admin/update'])
   @RequireLogin()
   async update(@UserInfo('userId') userId: number, @Body() updateUserDto: UpdateUserDto) {
-    return await this.userService.update(userId, updateUserDto); 
+    const res = await this.userService.update(userId, updateUserDto);
+    
+    this.redisService.del(`update_user_captcha_${updateUserDto.email}`);
+  
+    return  res;
   }
 
   @ApiBearerAuth()
