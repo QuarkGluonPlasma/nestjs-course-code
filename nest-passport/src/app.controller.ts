@@ -25,6 +25,7 @@ export class AppController {
 
   @UseGuards(AuthGuard('local'))
   @Post('login')
+  @IsPublic()
   async login(@Req() req: Request) {
     console.log(req.user);
     const token = this.jwtService.sign({
@@ -41,6 +42,7 @@ export class AppController {
 
   @UseGuards(AuthGuard('jwt'))
   @Get("list")
+  @IsPublic()
   list(@Req() req: Request) {
     console.log(req.user);
     return ['111', '222', '333', '444', '555']
