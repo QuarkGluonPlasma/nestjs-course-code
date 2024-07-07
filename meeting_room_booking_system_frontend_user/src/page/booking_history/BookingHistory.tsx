@@ -43,7 +43,10 @@ export function BookingHistory() {
     const [num, setNum] = useState(0);
 
     const searchBooking = async (values: SearchBooking) => {
-        const res = await bookingList(values, pageNo, pageSize);
+        const res = await bookingList({
+            ...values,
+            username: getUserInfo().username
+        }, pageNo, pageSize);
 
         const { data } = res.data;
         if(res.status === 201 || res.status === 200) {
