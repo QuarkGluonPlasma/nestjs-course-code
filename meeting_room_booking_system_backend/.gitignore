@@ -36,3 +36,5 @@ lerna-debug.log*
 
 uploads/
 .nestjs_repl_history
+daily-log/
+
