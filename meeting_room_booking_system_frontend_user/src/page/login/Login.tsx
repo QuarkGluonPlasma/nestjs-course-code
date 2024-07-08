@@ -22,7 +22,7 @@ const layout2 = {
 export function Login() {
     const navigate = useNavigate();
 
-    const onFinish = useCallback(async (values: LoginUser) => {
+    const onFinish = async (values: LoginUser) => {
         const res = await login(values.username, values.password);
     
         const { code, message: msg, data} = res.data;
@@ -39,7 +39,7 @@ export function Login() {
         } else {
             message.error(data || '系统繁忙，请稍后再试');
         }
-    }, []);
+    }
 
     return <div id="login-container">
         <h1>会议室预订系统</h1>

@@ -27,7 +27,7 @@ export function UpdateMeetingRoomModal(props: UpdateMeetingRoomModalProps) {
 
     const [form] = useForm<UpdateMeetingRoom>();
 
-    const handleOk = useCallback(async function() {
+    const handleOk = async function() {
         const values = form.getFieldsValue();
 
         values.description = values.description || '';
@@ -44,7 +44,7 @@ export function UpdateMeetingRoomModal(props: UpdateMeetingRoomModalProps) {
         } else {
             message.error(res.data.data);
         }
-    }, []);
+    }
 
     useEffect(() => {
         async function query() {

@@ -70,7 +70,7 @@ export function UserManage() {
         }
     ], []);
     
-    const freezeUser = useCallback(async (id: number) => {
+    const freezeUser = async (id: number) => {
         const res = await freeze(id);
     
         const { data } = res.data;
@@ -80,9 +80,9 @@ export function UserManage() {
         } else {
             message.error(data || '系统繁忙，请稍后再试');
         }
-    }, []);
+    }
 
-    const searchUser = useCallback(async (values: SearchUser) => {
+    const searchUser = async (values: SearchUser) => {
         const res = await userSearch(values.username,values.nickName, values.email, pageNo, pageSize);
 
         const { data } = res.data;
@@ -96,7 +96,7 @@ export function UserManage() {
         } else {
             message.error(data || '系统繁忙，请稍后再试');
         }
-    }, []);
+    }
 
     const [form ]  = useForm();
 
@@ -108,10 +108,10 @@ export function UserManage() {
         });
     }, [pageNo, pageSize, num]);
 
-    const changePage = useCallback(function(pageNo: number, pageSize: number) {
+    const changePage = function(pageNo: number, pageSize: number) {
         setPageNo(pageNo);
         setPageSize(pageSize);
-    }, []);
+    }
 
 
     return <div id="userManage-container">

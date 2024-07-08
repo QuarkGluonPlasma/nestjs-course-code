@@ -22,7 +22,7 @@ const layout1 = {
 export function UpdateInfo() {
     const [form] = useForm();
 
-    const onFinish = useCallback(async (values: UserInfo) => {
+    const onFinish = async (values: UserInfo) => {
         const res = await updateInfo(values);
     
         if(res.status === 201 || res.status === 200) {
@@ -45,16 +45,16 @@ export function UpdateInfo() {
         } else {
             message.error(res.data?.data || '系统繁忙，请稍后再试');
         }
-    }, []);
+    }
 
-    const sendCaptcha = useCallback(async function () {
+    const sendCaptcha = async function () {
         const res = await updateUserInfoCaptcha();
         if(res.status === 201 || res.status === 200) {
             message.success(res.data.data);
         } else {
             message.error('系统繁忙，请稍后再试');
         }
-    }, []);
+    }
 
     useEffect(() => {
         async function query() {

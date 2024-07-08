@@ -94,7 +94,7 @@ export function MeetingRoomManage() {
         }
     ], []);
 
-    const handleDelete = useCallback(async (id: number) => {
+    const handleDelete = async (id: number) => {
         try {
             await deleteMeetingRoom(id);
             message.success('删除成功');
@@ -103,9 +103,9 @@ export function MeetingRoomManage() {
             console.log(e);
             message.error('删除失败');
         }
-    }, []);
+    }
 
-    const searchMeetingRoom = useCallback(async (values: SearchMeetingRoom) => {
+    const searchMeetingRoom = async (values: SearchMeetingRoom) => {
         const res = await meetingRoomList(values.name, values.capacity, values.equipment, pageNo, pageSize);
 
         const { data } = res.data;
@@ -119,7 +119,7 @@ export function MeetingRoomManage() {
         } else {
             message.error(data || '系统繁忙，请稍后再试');
         }
-    }, []);
+    }
 
     const [form ]  = useForm();
 
@@ -131,10 +131,10 @@ export function MeetingRoomManage() {
         });
     }, [pageNo, pageSize, num]);
 
-    const changePage = useCallback(function(pageNo: number, pageSize: number) {
+    const changePage = function(pageNo: number, pageSize: number) {
         setPageNo(pageNo);
         setPageSize(pageSize);
-    }, []);
+    }
 
     return <div id="meetingRoomManage-container">
         <div className="meetingRoomManage-form">

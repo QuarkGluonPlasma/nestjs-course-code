@@ -28,7 +28,7 @@ export function Register() {
     const [form] = useForm();
     const navigate = useNavigate();
 
-    const onFinish = useCallback(async (values: RegisterUser) => {
+    const onFinish = async (values: RegisterUser) => {
         if(values.password !== values.confirmPassword) {
             return message.error('两次密码不一致');
         }
@@ -42,9 +42,9 @@ export function Register() {
         } else {
             message.error(res.data.data || '系统繁忙，请稍后再试');
         }
-    }, []);
+    }
 
-    const sendCaptcha = useCallback(async function () {
+    const sendCaptcha = async function () {
         const address = form.getFieldValue('email');
         if(!address) {
             return message.error('请输入邮箱地址');
@@ -56,7 +56,7 @@ export function Register() {
         } else {
             message.error(res.data.data ||'系统繁忙，请稍后再试');
         }
-    }, []);
+    }
     
 
     return <div id="register-container">

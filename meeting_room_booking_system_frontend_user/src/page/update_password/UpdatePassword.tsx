@@ -27,7 +27,7 @@ export function UpdatePassword() {
     const [form] = useForm();
     const navigate = useNavigate();
 
-    const onFinish = useCallback(async (values: UpdatePassword) => {
+    const onFinish = async (values: UpdatePassword) => {
         if(values.password !== values.confirmPassword) {
             return message.error('两次密码不一致');
         }
@@ -43,9 +43,9 @@ export function UpdatePassword() {
         } else {
             message.error(data || '系统繁忙，请稍后再试');
         }
-    }, []);
+    }
 
-    const sendCaptcha = useCallback(async function () {
+    const sendCaptcha = async function () {
         const address = form.getFieldValue('email');
         if(!address) {
             return message.error('请输入邮箱地址');
@@ -57,7 +57,7 @@ export function UpdatePassword() {
         } else {
             message.error('系统繁忙，请稍后再试');
         }
-    }, []);
+    }
 
     return <div id="updatePassword-container">
         <h1>会议室预订系统</h1>

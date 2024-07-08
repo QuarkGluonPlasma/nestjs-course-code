@@ -81,7 +81,7 @@ export function MeetingRoomList() {
         }
     ], []);
 
-    const searchMeetingRoom = useCallback(async (values: SearchMeetingRoom) => {
+    const searchMeetingRoom = async (values: SearchMeetingRoom) => {
         const res = await searchMeetingRoomList(values.name, values.capacity, values.equipment, pageNo, pageSize);
 
         const { data } = res.data;
@@ -95,7 +95,7 @@ export function MeetingRoomList() {
         } else {
             message.error(data || '系统繁忙，请稍后再试');
         }
-    }, []);
+    }
 
     const [form ]  = useForm();
 
@@ -107,10 +107,10 @@ export function MeetingRoomList() {
         });
     }, [pageNo, pageSize]);
 
-    const changePage = useCallback(function(pageNo: number, pageSize: number) {
+    const changePage = function(pageNo: number, pageSize: number) {
         setPageNo(pageNo);
         setPageSize(pageSize);
-    }, []);
+    }
 
     return <div id="meetingRoomList-container">
         <div className="meetingRoomList-form">

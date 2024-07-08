@@ -25,7 +25,7 @@ export function CreateMeetingRoomModal(props: CreateMeetingRoomModalProps) {
 
     const [form] = useForm<CreateMeetingRoom>();
 
-    const handleOk = useCallback(async function() {
+    const handleOk = async function() {
         const values = form.getFieldsValue();
 
         values.description = values.description || '';
@@ -40,7 +40,7 @@ export function CreateMeetingRoomModal(props: CreateMeetingRoomModalProps) {
         } else {
             message.error(res.data.data);
         }
-    }, []);
+    }
 
     return <Modal title="创建会议室" open={props.isOpen} onOk={handleOk} onCancel={() => props.handleClose()} okText={'创建'}>
         <Form

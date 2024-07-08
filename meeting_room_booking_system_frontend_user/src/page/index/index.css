@@ -15,6 +15,11 @@
     margin: 0;
 }
 
+#index-container h1 a {
+    color: #000;
+    text-decoration: none;
+}
+
 #index-container .icon {
     font-size: 40px;
     margin-top: 20px;
