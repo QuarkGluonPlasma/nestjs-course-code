@@ -32,7 +32,7 @@ axiosInstance.interceptors.response.use(
             
             const res = await refreshToken();
 
-            if(res.status === 200) {
+            if(res.status === 200 || res.status === 201) {
                 return axiosInstance(config);
             } else {
                 message.error(res.data);
