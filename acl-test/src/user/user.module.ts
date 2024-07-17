@@ -5,7 +5,7 @@ import { PermissionGuard } from './permission.guard';
 
 @Module({
   controllers: [UserController],
-  providers: [UserService, PermissionGuard],
-  exports: [UserService, PermissionGuard]
+  providers: [UserService],
+  exports: [UserService]
 })
 export class UserModule {}
