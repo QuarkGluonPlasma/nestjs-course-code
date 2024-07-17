@@ -48,6 +48,8 @@
 
 [图书管理系统-后端代码](./book-management-system-backend/)
 
+[图书管理系统-前端代码](./book-management-system-frontend/)
+
 [Nest 的文件上传](./nest-multer-upload)
 
 [大文件分片上传](./large-file-sharding-upload/)
