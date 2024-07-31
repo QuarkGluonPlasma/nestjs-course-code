@@ -18,7 +18,7 @@ model User {
   username String @db.VarChar(50) @unique
   password String @db.VarChar(50)
   nickName String @db.VarChar(50)
-  email String @db.VarChar(50)
+  email String @db.VarChar(50) @unique
   headPic String @db.VarChar(100) @default("")
   createTime DateTime @default(now())
   updateTime DateTime @updatedAt
