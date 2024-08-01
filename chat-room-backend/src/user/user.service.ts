@@ -84,9 +84,16 @@ export class UserService {
     const user =  await this.prismaService.user.findUnique({
         where: {
             id: userId
+        },
+        select: {
+          id: true,
+          username: true,
+          nickName: true,
+          email: true,
+          headPic: true,
+          createTime: true
         }
     });
-    delete user.password;
     return user;
   }
 
@@ -103,7 +110,7 @@ export class UserService {
 
     const foundUser = await this.prismaService.user.findUnique({
       where: {
-        email: passwordDto.email
+        username: passwordDto.username
       }
     });
 

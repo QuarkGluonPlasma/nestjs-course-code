@@ -93,7 +93,6 @@ export class UserController {
       return await this.userService.update(userId, updateUserDto); 
   }
 
-  
   @Get('update/captcha')
   async updateCaptcha(@Query('address') address: string) {
     if(!address) {
@@ -110,4 +109,5 @@ export class UserController {
     });
     return '发送成功';
   }
+
 }
