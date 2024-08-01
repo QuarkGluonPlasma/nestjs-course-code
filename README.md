@@ -222,6 +222,8 @@
 
 [Nest 开发 WebSocket 服务](./nest-websocket/)
 
+[基于 socket.io 的 room 实现群聊](./group-chat-room/)
+
 [Mongoose 操作 Mongodb](./mongoose-test/)
 
 [Nest 集成 Mongoose](./nest-mongoose/)

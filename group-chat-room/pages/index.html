@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>
+  </head>
+  <body>
+
+    <div id="messageBox">
+    </div>
+
+    <input id="messageInput"/>
+    <button id="sendMessage">发送</button>
+
+    <script>
+        const messageBox = document.getElementById('messageBox');
+        const messageInput = document.getElementById('messageInput');
+        const sendMessage = document.getElementById('sendMessage');
+
+        const roomName = prompt('输入群聊名');
+        const nickName = prompt('输入昵称');
+        if(roomName && nickName) {
+            const socket = io('http://localhost:3000');
+            socket.on('connect', function() {
+                console.log('Connected');
+
+                socket.emit('joinRoom', { roomName, nickName});
+
+                socket.on('message', (payload) => {
+                    console.log('收到来自房间的消息:', payload);
+
+                    const item = document.createElement('div');
+                    item.className = 'message'
+                    item.textContent = payload.nickName + ':  ' + payload.message;
+                    messageBox.appendChild(item);
+                });
+            });
+
+            sendMessage.onclick = function() {
+                socket.emit('sendMessage', { room: roomName, nickName, message: messageInput.value });
+            }
+
+            socket.on('disconnect', function() {
+                console.log('Disconnected');
+            });
+        }
+    </script>
+  </body>
+</html>
