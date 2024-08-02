@@ -1,25 +1,12 @@
 import { Button, Checkbox, Form, Input, message } from 'antd';
 import './index.css';
 import { login } from '../../interfaces';
+import { useNavigate } from 'react-router-dom';
 
 interface LoginUser {
     username: string;
     password: string;
 }
-
-const onFinish = async (values: LoginUser) => {
-    try {
-        const res = await login(values.username, values.password);
-        if(res.status === 201 || res.status === 200) {
-            message.success('登录成功');
-
-            localStorage.setItem('token', res.data.token);
-            localStorage.setItem('userInfo', JSON.stringify(res.data.user));
-        } 
-    } catch(e: any){
-        message.error(e.response.data.message || '系统繁忙，请稍后再试');
-    }
-};
 
 const layout1 = {
     labelCol: { span: 4 },
@@ -32,6 +19,26 @@ const layout2 = {
 }
 
 export function Login() {
+    const navigate = useNavigate();
+
+    const onFinish = async (values: LoginUser) => {
+        try {
+            const res = await login(values.username, values.password);
+            if(res.status === 201 || res.status === 200) {
+                message.success('登录成功');
+    
+                localStorage.setItem('token', res.data.token);
+                localStorage.setItem('userInfo', JSON.stringify(res.data.user));
+    
+                setTimeout(() => {
+                    navigate('/');
+                }, 1000);
+            } 
+        } catch(e: any){
+            message.error(e.response?.data?.message || '系统繁忙，请稍后再试');
+        }
+    };
+
     return <div id="login-container">
         <h1>聊天室</h1>
         <Form

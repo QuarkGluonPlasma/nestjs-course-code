@@ -25,13 +25,17 @@
     "@nestjs/jwt": "^10.2.0",
     "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^10.0.0",
+    "@nestjs/platform-socket.io": "^10.3.10",
+    "@nestjs/websockets": "^10.3.10",
     "@prisma/client": "^5.12.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
+    "minio": "^8.0.1",
     "nodemailer": "^6.9.13",
     "redis": "^4.6.13",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "socket.io": "^4.7.5"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",

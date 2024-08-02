@@ -35,8 +35,8 @@ export class FriendshipController {
   }
 
   @Get('list')
-  async friendship(@UserInfo('userId') userId: number) {
-    return this.friendshipService.getFriendship(userId);
+  async friendship(@UserInfo('userId') userId: number, @Query('name') name: string) {
+    return this.friendshipService.getFriendship(userId, name);
   }
 
   @Get('remove/:id')

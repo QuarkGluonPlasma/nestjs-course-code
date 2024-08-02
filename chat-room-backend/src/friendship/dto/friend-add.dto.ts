@@ -3,9 +3,9 @@ import { IsNotEmpty } from "class-validator";
 export class FriendAddDto {
 
     @IsNotEmpty({
-        message: "添加的好友 id 不能为空"
+        message: "添加好友的 username 不能为空"
     })
-    friendId: number;
+    username: string;
 
     reason: string;    
 }

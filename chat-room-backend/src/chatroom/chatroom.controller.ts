@@ -21,11 +21,11 @@ export class ChatroomController {
   }
 
   @Get('list')
-  async list(@UserInfo('userId') userId: number) {
+  async list(@UserInfo('userId') userId: number, @Query('name') name: string) {
     if(!userId) {
       throw new BadRequestException('userId 不能为空')
     }
-    return this.chatroomService.list(userId);
+    return this.chatroomService.list(userId, name);
   }
 
   @Get('members')

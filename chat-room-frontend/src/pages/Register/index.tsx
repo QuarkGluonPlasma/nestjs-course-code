@@ -56,11 +56,11 @@ export function Register() {
         if(res.status === 201 || res.status === 200) {
             message.success('注册成功');
             setTimeout(() => {
-                navigate('/');
+                navigate('/login');
             }, 1000);
         } 
         } catch(e: any) {
-            message.error(e.response.data.message || '系统繁忙，请稍后再试');
+            message.error(e.response?.data?.message || '系统繁忙，请稍后再试');
         }
     }
 

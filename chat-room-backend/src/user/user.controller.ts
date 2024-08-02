@@ -94,10 +94,10 @@ export class UserController {
   }
 
   @Get('update/captcha')
-  async updateCaptcha(@Query('address') address: string) {
-    if(!address) {
-      throw new BadRequestException('邮箱地址不能为空');
-    }
+  @RequireLogin()
+  async updateCaptcha(@UserInfo('userId') userId: number) {
+    const { email: address } = await this.userService.findUserDetailById(userId);
+
     const code = Math.random().toString().slice(2,8);
 
     await this.redisService.set(`update_user_captcha_${address}`, code, 10 * 60);

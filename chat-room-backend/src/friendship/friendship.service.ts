@@ -1,5 +1,5 @@
 import { FriendAddDto } from './dto/friend-add.dto';
-import { Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
@@ -9,10 +9,35 @@ export class FriendshipService {
     private prismaService: PrismaService;
 
     async add(friendAddDto: FriendAddDto, userId: number) {
+        const friend = await this.prismaService.user.findUnique({
+            where: {
+                username: friendAddDto.username
+            }
+        });
+
+        if(!friend) {
+            throw new BadRequestException('要添加的 username 不存在');
+        }
+
+        if(friend.id === userId) {
+            throw new BadRequestException('不能添加自己为好友');
+        }
+
+        const found = await this.prismaService.friendship.findMany({
+            where: {
+                userId,
+                friendId: friend.id
+            }
+        })
+
+        if(found.length) {
+            throw new BadRequestException('该好友已经添加过');
+        }
+    
         return await this.prismaService.friendRequest.create({
             data: {
                 fromUserId: userId,
-                toUserId: friendAddDto.friendId,
+                toUserId: friend.id,
                 reason: friendAddDto.reason,
                 status: 0
             }
@@ -20,38 +45,101 @@ export class FriendshipService {
     }
 
     async list(userId: number) {
-        return this.prismaService.friendRequest.findMany({
+        const fromMeRequest = await this.prismaService.friendRequest.findMany({
             where: {
                 fromUserId: userId
             }
         })
+
+        const toMeRequest =  await this.prismaService.friendRequest.findMany({
+            where: {
+                toUserId: userId
+            }
+        })
+
+        const res = {
+            toMe: [],
+            fromMe: []
+        }
+
+        for (let i = 0; i < fromMeRequest.length; i++) {
+            const user = await this.prismaService.user.findUnique({
+                where: {
+                    id: fromMeRequest[i].toUserId
+                },
+                select: {
+                    id: true,
+                    username: true,
+                    nickName: true,
+                    email: true,
+                    headPic: true,
+                    createTime: true
+                }
+            })
+            res.fromMe.push({
+                ...fromMeRequest[i],
+                toUser: user
+            })
+        }
+
+        for (let i = 0; i < toMeRequest.length; i++) {
+            const user = await this.prismaService.user.findUnique({
+                where: {
+                    id: toMeRequest[i].fromUserId
+                },
+                select: {
+                    id: true,
+                    username: true,
+                    nickName: true,
+                    email: true,
+                    headPic: true,
+                    createTime: true
+                }
+            })
+            res.toMe.push({
+                ...toMeRequest[i],
+                fromUser: user
+            })
+        }
+
+        return res;
     }
 
     async agree(friendId: number, userId: number) {
         await this.prismaService.friendRequest.updateMany({
             where: {
-                fromUserId: userId,
-                toUserId: friendId,
+                fromUserId: friendId,
+                toUserId: userId,
                 status: 0
             },
             data: {
                 status: 1
             }
         })
-        await this.prismaService.friendship.create({
-            data: {
+
+        const res = await this.prismaService.friendship.findMany({
+            where: {
                 userId,
                 friendId
             }
         })
+
+        if(!res.length) {
+            await this.prismaService.friendship.create({
+                data: {
+                    userId,
+                    friendId
+                }
+            })
+        }
         return '添加成功'
     }
 
     async reject(friendId: number, userId: number) {
         await this.prismaService.friendRequest.updateMany({
             where: {
-                fromUserId: userId,
-                toUserId: friendId,
+                fromUserId: friendId,
+                toUserId: userId,
                 status: 0
             },
             data: {
@@ -61,7 +149,7 @@ export class FriendshipService {
         return '已拒绝'
     }
 
-    async getFriendship(userId: number) {
+    async getFriendship(userId: number, name: string) {
         const foundUser = await this.prismaService.user.findUnique({
           where: {
             id: userId
@@ -74,7 +162,10 @@ export class FriendshipService {
         return this.prismaService.user.findMany({
           where: {
             id: {
-              in: foundUser.friends.map(item => item.friendId)
+                in: foundUser.friends.map(item => item.friendId)
+            },
+            nickName: {
+                contains: name
             }
           },
           select: {
