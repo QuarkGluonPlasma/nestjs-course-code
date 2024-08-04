@@ -10,7 +10,7 @@ export class ChatroomGateway {
     console.log(payload.roomName);
     client.join(payload.roomName);
     this.server.to(payload.roomName).emit('message', {
-      nickName: payload.roomName,
+      nickName: payload.nickName,
       message: `${payload.nickName} 加入了 ${payload.roomName} 房间`
     });
   }
