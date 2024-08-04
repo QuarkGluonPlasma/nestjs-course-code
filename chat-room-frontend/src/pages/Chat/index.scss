@@ -4,6 +4,7 @@
     flex-direction: row;
     width: 800px;
     height: 600px;
+    position: relative;
 
     .chat-room-list {
         width: 150px;
@@ -65,8 +66,7 @@
             }
         }
     }
-    
-    position: relative;
+
     .message-input {
         width: 648px;
         border: 1px solid #000;

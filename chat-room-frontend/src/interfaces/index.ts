@@ -117,3 +117,20 @@ export async function rejectFriendRequest(id: number) {
 export async function chatHistoryList(id: number) {
     return axiosInstance.get(`/chat-history/list?chatroomId=${id}`);
 }
+
+export async function findChatroom(userId1: number, userId2: number) {
+    return axiosInstance.get(`/chatroom/findChatroom`, {
+        params: {
+            userId1,
+            userId2
+        }
+    });
+}
+
+export async function createOneToOne(friendId: number,) {
+    return axiosInstance.get(`/chatroom/create-one-to-one`, {
+        params: {
+            friendId,
+        }
+    });
+}

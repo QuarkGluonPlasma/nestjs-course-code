@@ -50,6 +50,7 @@ export function Group() {
                 }));
             }
         } catch(e: any){
+            console.log(e);
             message.error(e.response?.data?.message || '系统繁忙，请稍后再试');
         }
     };

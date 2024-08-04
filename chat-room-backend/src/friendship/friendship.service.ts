@@ -1,5 +1,6 @@
 import { FriendAddDto } from './dto/friend-add.dto';
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import { User } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
@@ -150,31 +151,45 @@ export class FriendshipService {
     }
 
     async getFriendship(userId: number, name: string) {
-        const foundUser = await this.prismaService.user.findUnique({
-          where: {
-            id: userId
-          },
-          include: {
-            friends: true,
-          }
-        });
-    
-        return this.prismaService.user.findMany({
-          where: {
-            id: {
-                in: foundUser.friends.map(item => item.friendId)
-            },
-            nickName: {
-                contains: name
+        const friends = await this.prismaService.friendship.findMany({
+            where: {
+                OR: [
+                    {
+                        userId: userId
+                    },
+                    {
+                        friendId: userId
+                    }
+                ] 
             }
-          },
-          select: {
-            id: true,
-            username: true,
-            nickName: true,
-            email: true
-          }
-        })
+        });
+
+        const set = new Set<number>();
+        for(let i =0; i< friends.length; i++) {
+            set.add(friends[i].userId)
+            set.add(friends[i].friendId)
+        }
+
+        const friendIds = [...set].filter(item => item !== userId);
+
+        const res = [];
+
+        for(let i = 0; i< friendIds.length; i++) {
+            const user = await this.prismaService.user.findUnique({
+                where: {
+                  id: friendIds[i],
+                },
+                select: {
+                  id: true,
+                  username: true,
+                  nickName: true,
+                  email: true
+                }
+            })
+            res.push(user)
+        }
+
+        return res.filter((item: User) => item.nickName.includes(name))
     }
 
     async remove(friendId: number, userId: number) {

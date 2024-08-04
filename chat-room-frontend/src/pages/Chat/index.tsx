@@ -5,6 +5,7 @@ import './index.scss';
 import { chatHistoryList, chatroomList } from "../../interfaces";
 import { UserInfo } from "../UpdateInfo";
 import TextArea from "antd/es/input/TextArea";
+import { useLocation } from "react-router-dom";
 
 interface JoinRoomPayload {
     chatroomId: number
@@ -82,7 +83,9 @@ export function Chat() {
     
             socket.on('message', (reply: Reply) => {
                 if(reply.type === 'sendMessage') {
-                    setChatHistory((chatHistory) => [...chatHistory!, reply.message]);   
+                    setChatHistory((chatHistory) => {
+                        return chatHistory ? [...chatHistory, reply.message] : [reply.message]
+                    });   
                     setTimeout(() => {
                         document.getElementById('bottom-bar')?.scrollIntoView({block: 'end'});
                     }, 300);
@@ -90,6 +93,9 @@ export function Chat() {
             });
     
         });
+        return () => {
+            socket.disconnect();
+        }
     }, [roomId]);
 
     function sendMessage(value: string) {
@@ -135,6 +141,12 @@ export function Chat() {
         queryChatroomList();
     }, []);
 
+    useEffect(() => {
+        setTimeout(() => {
+            document.getElementById('bottom-bar')?.scrollIntoView({block: 'end'});
+        }, 300);
+    }, [roomId])
+
     const [chatHistory, setChatHistory] = useState<Array<ChatHistory>>();
 
     async function queryChatHistoryList(chatroomId: number) {
@@ -155,11 +167,17 @@ export function Chat() {
     }
     const [inputText, setInputText] = useState('');
 
+    const location = useLocation();
+
+    useEffect(() => {
+        setChatroomId(location.state?.chatroomId);
+    }, [location.state?.chatroomId]);
+
     return <div id="chat-container">
         <div className="chat-room-list">
             {
                 roomList?.map(item => {
-                    return <div className="chat-room-item" key={item.id} data-id={item.id} onClick={() => {
+                    return <div className={`chat-room-item ${item.id === roomId ? 'selected' : ''}`} key={item.id} data-id={item.id} onClick={() => {
                         queryChatHistoryList(item.id);
                         setChatroomId(item.id);
                     }}>{item.name}</div>

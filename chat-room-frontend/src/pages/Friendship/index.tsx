@@ -3,8 +3,10 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import './index.css';
 import { ColumnsType } from "antd/es/table";
 import { useForm } from "antd/es/form/Form";
-import { friendshipList } from "../../interfaces";
+import { createOneToOne, findChatroom, friendshipList } from "../../interfaces";
 import { AddFriendModal } from "./AddFriendModal";
+import { getUserInfo } from "../Chat";
+import { useNavigate } from "react-router-dom";
 
 interface SearchFriend {
     name: string;
@@ -22,7 +24,33 @@ export function Friendship() {
     const [friendshipResult, setFriendshipResult] = useState<Array<FriendshipSearchResult>>([]);
     const [isAddFriendModalOpen, setAddFriendModalOpen] = useState(false);
 
-    const columns: ColumnsType<FriendshipSearchResult> = useMemo(() => [
+    const navigate = useNavigate();
+
+    async function goToChat(friendId: number) {
+        const userId = getUserInfo().id;
+        try{
+            const res = await findChatroom(userId, friendId);
+    
+            if(res.data) {
+                navigate('/chat', {
+                    state: {
+                        chatroomId: res.data
+                    }
+                });
+            } else {
+                const res2 = await createOneToOne(friendId);
+                navigate('/chat', {
+                    state: {
+                        chatroomId: res2.data
+                    }
+                });
+            }
+        } catch(e: any){
+            message.error(e.response?.data?.message || '系统繁忙，请稍后再试');
+        }
+    }
+
+    const columns: ColumnsType<FriendshipSearchResult> = [
         {
             title: '昵称',
             dataIndex: 'nickName'
@@ -44,11 +72,13 @@ export function Friendship() {
             title: '操作',
             render: (_, record) => (
                 <div>
-                    <a href="#">聊天</a>
+                    <a href="#" onClick={() => {
+                        goToChat(record.id)
+                    }}>聊天</a>
                 </div>
             )
         }
-    ], []);
+    ]
 
     const searchFriend = async (values: SearchFriend) => {
         try{
