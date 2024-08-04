@@ -1,0 +1,101 @@
+#chat-container {
+    margin: 20px;
+    display: flex;
+    flex-direction: row;
+    width: 800px;
+    height: 600px;
+
+    .chat-room-list {
+        width: 150px;
+        border: 1px solid #000;
+        overflow-y: auto;
+    }
+
+    .chat-room-item {
+        line-height: 50px;
+        padding-left: 20px;
+        border: 1px solid #000;
+        cursor: pointer;
+
+        &:hover, &.selected{
+            background: lightgreen;
+        }
+    }
+
+    .message-list {
+        border: 1px solid #000;
+        flex: 1;
+        overflow-y: auto;
+        border-bottom: 0;
+        height: calc(100% - 100px);
+
+        .message-item {
+            padding: 20px;
+        
+            display: flex;
+            flex-wrap: wrap;
+
+            .message-sender {
+                width:100%;
+
+                img{
+                    width: 20px;
+                    height: 20px;
+                    padding-right: 10px;
+                }
+            }
+
+            .message-content{
+                border: 1px solid #000;
+                width:max-content;
+                padding: 10px 20px;
+                border-radius: 4px;
+                background: skyblue;
+            }
+            
+            &.from-me{
+                text-align: right;
+                justify-content: right;
+
+                .message-content{
+                    text-align: right;
+                    justify-content: right;
+                    background: #fff;
+                }
+            }
+        }
+    }
+    
+    position: relative;
+    .message-input {
+        width: 648px;
+        border: 1px solid #000;
+
+        height: 100px;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+
+        .message-type {
+            display: flex;
+
+            .message-type-item {
+                width: 100px;
+                &:hover {
+                    font-weight: bold;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .message-input-area {
+            width: 650px;
+
+            display: flex;
+            .message-send-btn {
+                width: 50px;
+                height: 50px;
+            }
+        }
+    }
+}

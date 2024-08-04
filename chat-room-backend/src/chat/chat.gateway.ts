@@ -1,3 +1,4 @@
+import { UserService } from './../user/user.service';
 import { ChatHistory } from '@prisma/client';
 import { MessageBody, SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
 import { ChatService } from './chat.service';
@@ -40,21 +41,28 @@ export class ChatGateway {
   @Inject(ChatHistoryService)
   private chatHistoryService: ChatHistoryService
 
+  @Inject(UserService)
+  private userService: UserService
+  
   @SubscribeMessage('sendMessage')
   async sendMessage(@MessageBody() payload: SendMessagePayload) {
     const roomName = payload.chatroomId.toString();
 
-    await this.chatHistoryService.add(payload.chatroomId, {
+    const history = await this.chatHistoryService.add(payload.chatroomId, {
       content: payload.message.content,
       type: payload.message.type === 'image' ? 1 : 0,
       chatroomId: payload.chatroomId,
       senderId: payload.sendUserId
     });
+    const sender = await this.userService.findUserDetailById(history.senderId);
 
     this.server.to(roomName).emit('message', { 
       type: 'sendMessage',
       userId: payload.sendUserId,
-      message: payload.message
+      message: {
+        ...history,
+        sender
+      }
     });
   }
 }
