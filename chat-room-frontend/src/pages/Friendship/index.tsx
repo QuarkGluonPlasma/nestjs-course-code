@@ -52,6 +52,14 @@ export function Friendship() {
 
     const columns: ColumnsType<FriendshipSearchResult> = [
         {
+            title: 'ID',
+            dataIndex: 'id'
+        },
+        {
+            title: '用户名',
+            dataIndex: 'username'
+        },
+        {
             title: '昵称',
             dataIndex: 'nickName'
         },

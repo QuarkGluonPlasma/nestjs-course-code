@@ -45,14 +45,14 @@ export class ChatroomController {
   }
 
   @Get('join/:id')
-  async join(@Param('id') id: number, @Query('joinUserId') joinUserId: number) {
+  async join(@Param('id') id: number, @Query('joinUsername') joinUsername: string) {
     if(!id) {
       throw new BadRequestException('id 不能为空')
     }
-    if(!joinUserId) {
-      throw new BadRequestException('joinUserId 不能为空')
+    if(!joinUsername) {
+      throw new BadRequestException('joinUsername 不能为空')
     }
-    return this.chatroomService.join(id, joinUserId);
+    return this.chatroomService.join(id, joinUsername);
   }
 
   @Get('quit/:id')

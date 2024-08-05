@@ -134,3 +134,27 @@ export async function createOneToOne(friendId: number,) {
         }
     });
 }
+
+export async function groupMembers(chatroomId: number) {
+    return axiosInstance.get(`/chatroom/members`, {
+        params: {
+            chatroomId
+        }
+    });
+}
+
+export async function addMember(chatroomId: number, joinUsername: string) {
+    return axiosInstance.get(`/chatroom/join/${chatroomId}`, {
+        params: {
+            joinUsername
+        }
+    });
+}
+
+export async function createGroup(name: string) {
+    return axiosInstance.get(`/chatroom/create-group`, {
+        params: {
+            name
+        }
+    });
+}

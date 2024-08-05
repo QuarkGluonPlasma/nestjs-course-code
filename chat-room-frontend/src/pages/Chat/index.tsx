@@ -1,4 +1,4 @@
-import { Button, Input, message } from "antd";
+import { Button, Input, message, Popover } from "antd";
 import { useEffect, useRef, useState } from "react";
 import { io, Socket } from "socket.io-client";
 import './index.scss';
@@ -6,6 +6,9 @@ import { chatHistoryList, chatroomList } from "../../interfaces";
 import { UserInfo } from "../UpdateInfo";
 import TextArea from "antd/es/input/TextArea";
 import { useLocation } from "react-router-dom";
+import EmojiPicker from "@emoji-mart/react";
+import data from '@emoji-mart/data'
+import { UploadModal } from "./UploadModal";
 
 interface JoinRoomPayload {
     chatroomId: number
@@ -18,8 +21,10 @@ interface SendMessagePayload {
     message: Message
 }
 
+type MessageType = 'image' | 'text' | 'file';
+
 interface Message {
-    type: 'text' | 'image'
+    type: MessageType
     content: string
 }
 
@@ -66,6 +71,7 @@ export function Chat() {
     const socketRef = useRef<Socket>();
     const [roomId, setChatroomId] = useState<number>();
     const userInfo = getUserInfo();
+    const [isUploadModalOpen, setUploadModalOpen] = useState(false);
 
     useEffect(() => {
         if(!roomId) {
@@ -91,14 +97,13 @@ export function Chat() {
                     }, 300);
                 }
             });
-    
         });
         return () => {
             socket.disconnect();
         }
     }, [roomId]);
 
-    function sendMessage(value: string) {
+    function sendMessage(value: string, type: MessageType = 'text') {
         if(!value) {
             return;
         }
@@ -110,7 +115,7 @@ export function Chat() {
             sendUserId: userInfo.id,
             chatroomId: roomId,
             message: {
-                type: 'text',
+                type,
                 content: value
             }
         }
@@ -133,6 +138,7 @@ export function Chat() {
                 }));
             }
         } catch(e: any){
+            console.log(e);
             message.error(e.response?.data?.message || '系统繁忙，请稍后再试');
         }
     }
@@ -170,8 +176,14 @@ export function Chat() {
     const location = useLocation();
 
     useEffect(() => {
-        setChatroomId(location.state?.chatroomId);
+        if(location.state?.chatroomId) {
+            setChatroomId(location.state?.chatroomId);
+
+            queryChatHistoryList(location.state?.chatroomId);
+        }
     }, [location.state?.chatroomId]);
+
+    const [uploadType, setUploadType] = useState<'image' | 'file'>('image'); 
 
     return <div id="chat-container">
         <div className="chat-room-list">
@@ -192,7 +204,13 @@ export function Chat() {
                         <span className="sender-nickname">{item.sender.nickName}</span>
                     </div>
                     <div className="message-content">
-                        {item.content}
+                        {
+                            item.type === 0 
+                                ? item.content 
+                                : item.type === 1
+                                    ? <img src={item.content} style={{maxWidth: 200}}/>
+                                    : <div><a download href={item.content}>{item.content}</a></div>
+                        }
                     </div>
                 </div>
             })}
@@ -200,9 +218,21 @@ export function Chat() {
         </div>
         <div className="message-input">
             <div className="message-type">
-                <div className="message-type-item" key={1}>表情</div>
-                <div className="message-type-item" key={2}>图片</div>
-                <div className="message-type-item" key={3}>文件</div>
+                <div className="message-type-item" key={1}>
+                    <Popover content={<EmojiPicker data={data} onEmojiSelect={(emoji: any) => {
+                        setInputText((inputText) => inputText + emoji.native)
+                    }} />} title="Title" trigger="click">
+                        表情
+                    </Popover>
+                </div>
+                <div className="message-type-item" key={2} onClick={() => {
+                    setUploadType('image');
+                    setUploadModalOpen(true);
+                }}>图片</div>
+                <div className="message-type-item" key={3}onClick={() => {
+                    setUploadType('file');
+                    setUploadModalOpen(true);
+                }}>文件</div>
             </div>
             <div className="message-input-area">
                 <TextArea className="message-input-box" value={inputText} onChange={(e) => {
@@ -214,5 +244,12 @@ export function Chat() {
                 }}>发送</Button>
             </div>
         </div>
+        <UploadModal isOpen={isUploadModalOpen} type={uploadType} handleClose={(fileUrl) => {
+            setUploadModalOpen(false);
+
+            if(fileUrl) {
+                sendMessage(fileUrl, uploadType)
+            }
+        }} />
     </div>
 }
