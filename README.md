@@ -174,6 +174,8 @@
 
 [Nest 集成 etcd](./nest-etcd/)
 
+[nacos 实现注册中心和配置中心](./nacos-node-test/)
+
 [扫码登录](./qrcode-login)
 
 [OSS 上传](./oss-test/)
