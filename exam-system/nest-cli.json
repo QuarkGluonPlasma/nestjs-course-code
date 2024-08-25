@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/exam-system/src",
+  "compilerOptions": {
+    "deleteOutDir": true,
+    "webpack": true,
+    "tsConfigPath": "apps/exam-system/tsconfig.app.json"
+  },
+  "monorepo": true,
+  "root": "apps/exam-system",
+  "projects": {
+    "exam-system": {
+      "type": "application",
+      "root": "apps/exam-system",
+      "entryFile": "main",
+      "sourceRoot": "apps/exam-system/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/exam-system/tsconfig.app.json"
+      }
+    },
+    "user": {
+      "type": "application",
+      "root": "apps/user",
+      "entryFile": "main",
+      "sourceRoot": "apps/user/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/user/tsconfig.app.json"
+      }
+    },
+    "exam": {
+      "type": "application",
+      "root": "apps/exam",
+      "entryFile": "main",
+      "sourceRoot": "apps/exam/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/exam/tsconfig.app.json"
+      }
+    },
+    "answer": {
+      "type": "application",
+      "root": "apps/answer",
+      "entryFile": "main",
+      "sourceRoot": "apps/answer/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/answer/tsconfig.app.json"
+      }
+    },
+    "analyse": {
+      "type": "application",
+      "root": "apps/analyse",
+      "entryFile": "main",
+      "sourceRoot": "apps/analyse/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/analyse/tsconfig.app.json"
+      }
+    },
+    "redis": {
+      "type": "library",
+      "root": "libs/redis",
+      "entryFile": "index",
+      "sourceRoot": "libs/redis/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/redis/tsconfig.lib.json"
+      }
+    }
+  }
+}
