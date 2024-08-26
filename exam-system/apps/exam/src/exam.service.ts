@@ -26,11 +26,13 @@ export class ExamService {
     })
   }
 
-  async list(userId: number, bin: boolean) {
+  async list(userId: number, bin: string) {
     return this.prismaService.exam.findMany({
-      where: {
+      where: bin !== undefined ? {
         createUserId: userId,
-        isDelete: !bin
+        isDelete: true
+      } : {
+        createUserId: userId,
       }
     })
   }
@@ -55,6 +57,18 @@ export class ExamService {
       },
       data: {
         isPublish: true
+      }
+    })
+  }
+
+  async unpublish(userId: number, id: number) {
+    return this.prismaService.exam.update({
+      where: {
+        id,
+        createUserId: userId
+      },
+      data: {
+        isPublish: false
       }
     })
   }

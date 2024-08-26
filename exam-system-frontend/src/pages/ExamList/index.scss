@@ -1,0 +1,30 @@
+#ExamList-container{
+    .header{
+        height: 80px;
+        border-bottom: 1px solid #aaa;
+        line-height: 80px;
+    }
+    h1{
+        margin:0;
+    }
+
+    .body{
+        .operate {
+            padding: 20px;
+        }
+        .list {
+            .item {
+                min-height: 100px;
+                border: 1px solid #000;
+                padding: 20px;
+                margin-bottom: 20px;
+
+                .btns {
+                    .btn {
+                        margin: 10px;
+                    }
+                }
+            }
+        }
+    }
+}

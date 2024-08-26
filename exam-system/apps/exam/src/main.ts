@@ -11,6 +11,8 @@ async function bootstrap() {
       port: 8888,
     },
   });
+
+  app.enableCors();
   
   await app.listen(3002);
 }

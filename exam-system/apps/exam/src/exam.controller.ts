@@ -33,7 +33,7 @@ export class ExamController {
   @Get('list')
   @RequireLogin()
   async list(@UserInfo('userId') userId: number, @Query('bin') bin: string) {
-    return this.examService.list(userId, bin === undefined);
+    return this.examService.list(userId, bin);
   }
 
   @Delete('delete/:id')
@@ -52,5 +52,11 @@ export class ExamController {
   @RequireLogin()
   async publish(@UserInfo('userId') userId: number, @Param('id') id: string) {
     return this.examService.publish(userId, +id);
+  }
+
+  @Get('unpublish/:id')
+  @RequireLogin()
+  async unpublish(@UserInfo('userId') userId: number, @Param('id') id: string) {
+    return this.examService.unpublish(userId, +id);
   }
 }
