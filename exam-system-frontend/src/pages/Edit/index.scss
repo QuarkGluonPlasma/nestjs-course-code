@@ -1,0 +1,57 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#edit-container {
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        height: 80px;
+        font-size: 30px;
+        line-height: 80px;
+        border-bottom: 1px solid #000;
+        padding:0 20px;
+    }
+
+    .body {
+        height: calc(100vh - 80px);
+
+        display: flex;
+        .materials {
+            height: 100%;
+            width: 300px;
+            border-right: 1px solid #000;
+
+            .meterial-item {
+                padding: 20px;
+                border: 1px solid #000;
+                display: inline-block;
+                margin: 10px;
+                cursor: move;
+            }
+        }
+        
+        .edit-area {
+            height: 100%;
+            flex: 1;
+        }
+
+        .setting {
+            height: 100%;
+            width: 400px;
+            border-left: 1px solid #000;
+        }
+
+        .component-item {
+            margin: 20px;
+
+            line-height: 40px;
+            font-size: 20px;
+
+            border-bottom: 1px solid #000;
+        }
+    }
+}
