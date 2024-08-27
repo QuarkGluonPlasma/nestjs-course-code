@@ -1,0 +1,22 @@
+#res-container {
+    padding: 20px;
+    .score-container {
+        span {
+            font-size: 50px;
+            color: red;
+            font-weight: bold;
+        }
+        margin-bottom: 20px;
+    }
+
+    .component-item {
+        margin: 20px;
+
+        line-height: 40px;
+        font-size: 20px;
+
+        .answerAnalyse {
+            color: green;
+        }
+    }
+}

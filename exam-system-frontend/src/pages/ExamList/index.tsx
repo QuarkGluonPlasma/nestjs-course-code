@@ -1,8 +1,9 @@
-import { Button, message, Popconfirm, Space } from "antd";
+import { Button, message, Popconfirm, Popover, Space } from "antd";
 import "./index.scss";
 import { useEffect, useState } from "react";
 import { examDelete, examList, examPublish, examUnpublish } from "../../interfaces";
 import { ExamAddModal } from "./ExamAddModal";
+import { Link } from "react-router-dom";
 
 interface Exam {
     id: number
@@ -84,7 +85,14 @@ export function ExamList() {
                                 <Button className="btn" type="primary" style={{background: 'darkblue'}} onClick={()=> {
                                     changePublishState(item.id, item.isPublish);
                                 }}>{item.isPublish ?  '停止' : '发布' }</Button>
-                                <Button className="btn" type="primary" style={{background: 'green'}}>编辑</Button>    
+                                <Button className="btn" type="primary" style={{background: 'green'}}>
+                                    <Link to={`/edit/${item.id}`}>编辑</Link>
+                                </Button>
+                                <Popover content={window.location.origin + '/exam/' + item.id} trigger="click">
+                                    <Button type="default">
+                                        考试链接
+                                    </Button>
+                                </Popover>
                                 <Popconfirm
                                     title="试卷删除"
                                     description="确认放入回收站吗？"

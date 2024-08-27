@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import './index.scss';
 import { Button, Radio, Checkbox, Input, message, Form, InputNumber, Segmented, Space } from "antd";
 import { useDrag, useDrop } from "react-dnd";
@@ -151,6 +151,9 @@ export function Edit() {
                         setPreviewModalOpen(true)
                     }}>预览</Button>
                     <Button type="primary" onClick={saveExam}>保存</Button>
+                    <Button type="default">
+                        <Link to="/">返回</Link>
+                    </Button>
                 </Space>
             </div>
         </div>
