@@ -1,13 +1,15 @@
 import { useParams } from "react-router-dom";
 import './index.scss';
-import { Button, Radio, Checkbox, Input, message, Form, InputNumber, Segmented } from "antd";
+import { Button, Radio, Checkbox, Input, message, Form, InputNumber, Segmented, Space } from "antd";
 import { useDrag, useDrop } from "react-dnd";
 import { MaterialItem } from "./MaterialItem";
 import { useEffect, useState } from "react";
 import TextArea from "antd/es/input/TextArea";
 import { useForm } from "antd/es/form/Form";
+import { examFind, examSave } from "../../interfaces";
+import { PreviewModal } from "./PreviewModal";
 
-type Question =  {
+export type Question =  {
     id: number
     question: string
     type: 'radio' | 'checkbox' | 'input' 
@@ -24,6 +26,26 @@ export function Edit() {
     const [curQuestionId, setCurQuestionId] = useState<number>();
 
     const [json, setJson] = useState<Array<Question>>([])
+
+    async function query() {
+        if(!id) {
+            return;
+        }
+        try {
+            const res = await examFind(+id);
+            if(res.status === 201 || res.status === 200) {
+                try{
+                    setJson(JSON.parse(res.data.content))
+                } catch(e) {}
+            } 
+        } catch(e: any){
+            message.error(e.response?.data?.message || '系统繁忙，请稍后再试');
+        }
+    }
+
+    useEffect(() => {
+        query();        
+    }, [])
 
     function renderComponents(arr: Array<Question>) {
         return arr.map(item => {
@@ -98,10 +120,39 @@ export function Edit() {
 
     const [key, setKey] = useState<string>('json');
 
+    async function saveExam() {
+        if(!id) {
+            return;
+        }
+        try {
+            const res = await examSave({
+                id: +id,
+                content: JSON.stringify(json)
+            });
+            if(res.status === 201 || res.status === 200) {
+                message.success('保存成功')
+            } 
+        } catch(e: any){
+            message.error(e.response?.data?.message || '系统繁忙，请稍后再试');
+        }
+    }
+
+    const [isPreviewModalOpen, setPreviewModalOpen] = useState(false);
+
     return <div id="edit-container">
+        <PreviewModal isOpen={isPreviewModalOpen} json={json} handleClose={() =>{
+            setPreviewModalOpen(false)
+        }}/>
         <div className="header">
             <div>试卷编辑器</div>
-            <Button type="primary">预览</Button>
+            <div>
+                <Space>
+                    <Button type="default" onClick={() => {
+                        setPreviewModalOpen(true)
+                    }}>预览</Button>
+                    <Button type="primary" onClick={saveExam}>保存</Button>
+                </Space>
+            </div>
         </div>
         <div className="body">
             <div className="materials">

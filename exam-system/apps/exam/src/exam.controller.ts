@@ -24,6 +24,13 @@ export class ExamController {
     return numArr.reduce((total, item) => total + item, 0);
   }
 
+  @Get('find/:id')
+  @RequireLogin()
+  async find( @UserInfo('userId') userId: number, @Param('id') id: string) {
+    return this.examService.find(+id, userId);
+  }
+
+
   @Post('add')
   @RequireLogin()
   async add(@Body() dto: ExamAddDto, @UserInfo('userId') userId: number) {

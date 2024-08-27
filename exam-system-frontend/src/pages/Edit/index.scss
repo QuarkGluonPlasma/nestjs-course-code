@@ -44,14 +44,23 @@
             width: 400px;
             border-left: 1px solid #000;
         }
+    }
 
-        .component-item {
-            margin: 20px;
+    .component-item {
+        margin: 20px;
 
-            line-height: 40px;
-            font-size: 20px;
+        line-height: 40px;
+        font-size: 20px;
 
-            border-bottom: 1px solid #000;
-        }
+        border-bottom: 1px solid #000;
+    }
+}
+
+.preview {
+    .component-item {
+        margin: 20px;
+
+        line-height: 40px;
+        font-size: 20px;
     }
 }

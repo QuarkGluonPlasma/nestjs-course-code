@@ -26,6 +26,15 @@ export class ExamService {
     })
   }
 
+  async find(id: number, userId: number) {
+    return this.prismaService.exam.findUnique({
+      where: {
+        id,
+        createUserId: userId
+      }
+    })
+  }
+
   async list(userId: number, bin: string) {
     return this.prismaService.exam.findMany({
       where: bin !== undefined ? {
