@@ -1,9 +1,10 @@
 import { Button, message, Popconfirm, Popover, Space } from "antd";
 import "./index.scss";
 import { useEffect, useState } from "react";
-import { examDelete, examList, examPublish, examUnpublish } from "../../interfaces";
+import { answerExport, examDelete, examList, examPublish, examUnpublish } from "../../interfaces";
 import { ExamAddModal } from "./ExamAddModal";
 import { Link } from "react-router-dom";
+import { RankingModal } from "./RankingModal";
 
 interface Exam {
     id: number
@@ -17,6 +18,8 @@ export function ExamList() {
 
     const [list, setList] = useState<Array<Exam>>();
     const [isExamAddModalOpen, setIsExamAddModalOpen] = useState(false);
+    const [isRankingModalOpen, setIsRankingModalOpen] = useState(false);
+    const [curExamId, setCurExamId] = useState<number>();
 
     async function query() {
         try {
@@ -47,6 +50,17 @@ export function ExamList() {
             if(res.status === 201 || res.status === 200) {
                 message.success('已删除');
                 query();
+            } 
+        } catch(e: any){
+            message.error(e.response?.data?.message || '系统繁忙，请稍后再试');
+        }
+    }
+
+    async function downloadExcel(examId: number) {
+        try {
+            const res = await answerExport(examId);
+            if(res.status === 201 || res.status === 200) {
+                message.success('导出成功');
             } 
         } catch(e: any){
             message.error(e.response?.data?.message || '系统繁忙，请稍后再试');
@@ -93,6 +107,15 @@ export function ExamList() {
                                         考试链接
                                     </Button>
                                 </Popover>
+                                <Button className="btn" type="primary" style={{background: 'orange'}} onClick={() => {
+                                    setIsRankingModalOpen(true)
+                                    setCurExamId(item.id);
+                                }}>
+                                    排行榜
+                                </Button>
+                                <a href={"http://localhost:3003/answer/export?examId=" + item.id} download>
+                                    导出所有答卷
+                                </a>
                                 <Popconfirm
                                     title="试卷删除"
                                     description="确认放入回收站吗？"
@@ -112,5 +135,8 @@ export function ExamList() {
             setIsExamAddModalOpen(false);
             query();
         }}/>
+        <RankingModal isOpen={isRankingModalOpen} handleClose={() => {
+            setIsRankingModalOpen(false);
+        }} examId={curExamId}/>
     </div>
 }

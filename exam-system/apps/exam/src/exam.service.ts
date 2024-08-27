@@ -26,11 +26,10 @@ export class ExamService {
     })
   }
 
-  async find(id: number, userId: number) {
+  async find(id: number) {
     return this.prismaService.exam.findUnique({
       where: {
-        id,
-        createUserId: userId
+        id
       }
     })
   }

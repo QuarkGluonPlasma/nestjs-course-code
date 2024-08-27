@@ -26,10 +26,9 @@ export class ExamController {
 
   @Get('find/:id')
   @RequireLogin()
-  async find( @UserInfo('userId') userId: number, @Param('id') id: string) {
-    return this.examService.find(+id, userId);
+  async find(@Param('id') id: string) {
+    return this.examService.find(+id);
   }
-
 
   @Post('add')
   @RequireLogin()
