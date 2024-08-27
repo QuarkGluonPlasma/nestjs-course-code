@@ -90,6 +90,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/common/tsconfig.lib.json"
       }
+    },
+    "excel": {
+      "type": "library",
+      "root": "libs/excel",
+      "entryFile": "index",
+      "sourceRoot": "libs/excel/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/excel/tsconfig.lib.json"
+      }
     }
   }
 }

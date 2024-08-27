@@ -41,6 +41,12 @@
       ],
       "@app/common/*": [
         "libs/common/src/*"
+      ],
+      "@app/excel": [
+        "libs/excel/src"
+      ],
+      "@app/excel/*": [
+        "libs/excel/src/*"
       ]
     }
   }

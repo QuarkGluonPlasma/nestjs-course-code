@@ -28,6 +28,7 @@
     "@prisma/client": "^5.18.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
+    "exceljs": "^4.4.0",
     "nodemailer": "^6.9.14",
     "redis": "^4.7.0",
     "reflect-metadata": "^0.1.13",
@@ -81,7 +82,8 @@
       "^y/redis(|/.*)$": "<rootDir>/libs/redis/src/$1",
       "^y/prisma(|/.*)$": "<rootDir>/libs/prisma/src/$1",
       "^@app/email(|/.*)$": "<rootDir>/libs/email/src/$1",
-      "^@app/common(|/.*)$": "<rootDir>/libs/common/src/$1"
+      "^@app/common(|/.*)$": "<rootDir>/libs/common/src/$1",
+      "^@app/excel(|/.*)$": "<rootDir>/libs/excel/src/$1"
     }
   }
 }
