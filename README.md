@@ -2,6 +2,8 @@
 
 掘金小册[《Nest 通关秘籍》](https://juejin.cn/book/7226988578700525605)案例代码
 
+后续更多内容关注 #神光的幸福生活 公众号
+
 [5 种 http 数据传输方式](./five-transmission-method)
 
 [ioc 容器](./nest-ioc)
