@@ -2,7 +2,7 @@ import { Button, Input, message, Popover } from "antd";
 import { useEffect, useRef, useState } from "react";
 import { io, Socket } from "socket.io-client";
 import './index.scss';
-import { chatHistoryList, chatroomList } from "../../interfaces";
+import { chatHistoryList, chatroomList, favoriteAdd } from "../../interfaces";
 import { UserInfo } from "../UpdateInfo";
 import TextArea from "antd/es/input/TextArea";
 import { useLocation } from "react-router-dom";
@@ -183,6 +183,18 @@ export function Chat() {
         }
     }, [location.state?.chatroomId]);
 
+    async function addToFavorite(chatHistoryId: number) {
+        try{
+            const res = await favoriteAdd(chatHistoryId);
+
+            if(res.status === 201 || res.status === 200) {
+                message.success('收藏成功')
+            }
+        } catch(e: any){
+            message.error(e.response?.data?.message || '系统繁忙，请稍后再试');
+        }
+    }
+
     const [uploadType, setUploadType] = useState<'image' | 'file'>('image'); 
 
     return <div id="chat-container">
@@ -192,13 +204,21 @@ export function Chat() {
                     return <div className={`chat-room-item ${item.id === roomId ? 'selected' : ''}`} key={item.id} data-id={item.id} onClick={() => {
                         queryChatHistoryList(item.id);
                         setChatroomId(item.id);
-                    }}>{item.name}</div>
+                    }}
+                    >{item.name}</div>
                 })
             }
         </div>
         <div className="message-list">
             {chatHistory?.map(item => {
-                return <div className={`message-item ${item.senderId === userInfo.id ? 'from-me' : ''}`} key={item.id} data-id={item.id}>
+                return <div 
+                    className={`message-item ${item.senderId === userInfo.id ? 'from-me' : ''}`} 
+                    key={item.id} 
+                    data-id={item.id}
+                    onDoubleClick={() => {
+                        addToFavorite(item.id)
+                    }}
+                    >
                     <div className="message-sender">
                         <img src={item.sender.headPic} />
                         <span className="sender-nickname">{item.sender.nickName}</span>

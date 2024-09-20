@@ -65,7 +65,6 @@ export function Friendship() {
         },
         {
             title: '头像',
-            dataIndex: 'headPic',
             render: (_, record) => (
                 <div>
                     <img src={record.headPic}/>
