@@ -4,6 +4,8 @@
 
 后续更多内容关注 #神光的幸福生活 公众号
 
+![](./qrcode.jpg)
+
 [5 种 http 数据传输方式](./five-transmission-method)
 
 [ioc 容器](./nest-ioc)
