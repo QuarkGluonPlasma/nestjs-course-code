@@ -14,6 +14,11 @@ export class AppController {
     return this.appService.getHello();
   }
 
+  @Get('short-url')
+  async generateShortUrl(@Query('url') longUrl) {
+    return this.shortLongMapService.generate(longUrl);
+  }
+
   @Get(':code')
   @Redirect()
   async jump(@Param('code') code) {
@@ -25,10 +30,5 @@ export class AppController {
       url: longUrl,
       statusCode: 302
     }  
-  }
-
-  @Get('short-url')
-  async generateShortUrl(@Query('url') longUrl) {
-    return this.shortLongMapService.generate(longUrl);
   }
 }
