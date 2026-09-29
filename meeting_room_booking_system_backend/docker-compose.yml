@@ -40,7 +40,7 @@ services:
     networks:
       - common-network
   minio-container:
-    image: bitnami/minio:latest
+    image: soldevelo/minio:latest
     ports:
       - 9000:9000
       - 9001:9001
